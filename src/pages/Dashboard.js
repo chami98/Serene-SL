@@ -16,7 +16,8 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { mainListItems, secondaryListItems } from '../utils/listItems'
 
 
@@ -155,11 +156,53 @@ export default function Dashboard() {
                         overflow: 'auto',
                     }}
                 >
+
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <Paper sx={{
+                                    height: '100%',
+                                    padding: 5,
+                                    backgroundColor: '#ffffff', // Background color
+                                    borderRadius: 10, // Rounded corners
+                                    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow
+                                    transition: 'transform 0.3s ease-in-out', // Smooth transition
+                                    '&:hover': {
+                                        transform: 'scale(1.02)' // Scale up on hover
+                                    }
+                                }}>
+                                    <FlightTakeoffIcon sx={{ fontSize: 60, color: '#2196f3' }} /> {/* Icon color */}
+                                    <Typography variant="h6" component="h2" sx={{ mt: 2, color: '#212121' }}> {/* Text color */}
+                                        Plan Your Trip
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ mt: 1, color: '#757575' }}> {/* Text color */}
+                                        Start planning your next adventure.
+                                    </Typography>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <Paper sx={{
+                                    height: '100%',
+                                    padding: 5,
+                                    backgroundColor: '#ffffff', // Background color
+                                    borderRadius: 10, // Rounded corners
+                                    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow
+                                    transition: 'transform 0.3s ease-in-out', // Smooth transition
+                                    '&:hover': {
+                                        transform: 'scale(1.02)' // Scale up on hover
+                                    }
+                                }}>
+                                    <DirectionsCarIcon sx={{ fontSize: 60, color: '#4caf50' }} /> {/* Icon color */}
+                                    <Typography variant="h6" component="h2" sx={{ mt: 2, color: '#212121' }}> {/* Text color */}
+                                        Ongoing Trips
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ mt: 1, color: '#757575' }}> {/* Text color */}
+                                        View and manage your ongoing trips.
+                                    </Typography>
+                                </Paper>
+                            </Grid>
                         </Grid>
-                        <Copyright sx={{ pt: 4 }} />
                     </Container>
                 </Box>
             </Box>
