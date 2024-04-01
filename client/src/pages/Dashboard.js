@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -9,7 +10,6 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -19,7 +19,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { mainListItems, secondaryListItems } from '../utils/listItems'
-
 
 function Copyright(props) {
     return (
@@ -80,13 +79,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
+
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-    const [open, setOpen] = React.useState(true);
+
+    const isDesktopView = useMediaQuery('(min-width:600px)');
+    const [open, setOpen] = React.useState(isDesktopView);
     const toggleDrawer = () => {
-        setOpen(!open);
+
+        if (isDesktopView) {
+            setOpen(!open);
+        }
     };
 
     return (
@@ -120,8 +124,6 @@ export default function Dashboard() {
                         >
                             Serene SL
                         </Typography>
-                        <IconButton color="inherit">
-                        </IconButton>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
@@ -147,10 +149,6 @@ export default function Dashboard() {
                 <Box
                     component="main"
                     sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
