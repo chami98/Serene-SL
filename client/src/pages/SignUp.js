@@ -184,8 +184,7 @@ export default function SignUp() {
                                         />
                                     )}
                                 />
-
-                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+                                <Button component={Link} href="/signin" fullWidth variant="contained" sx={{ mt: 3 }}>
                                     Sign Up
                                 </Button>
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
@@ -234,7 +233,7 @@ export default function SignUp() {
                                     id="password"
                                     autoComplete="new-password"
                                 />
-                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+                                <Button component={Link} href="/signin" fullWidth variant="contained" sx={{ mt: 3 }}>
                                     Sign Up
                                 </Button>
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
