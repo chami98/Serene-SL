@@ -3,8 +3,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmojiPeopleRoundedIcon from '@mui/icons-material/EmojiPeopleRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -55,7 +56,7 @@ export default function SignUp() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://www.tilaksblog.com/wp-content/uploads/2023/04/1588843579185.jpg)',
+                        backgroundImage: 'url(https://www.bestvoyage.in/upload/blog/blog_-2022071406182265.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: '#f7f7f7',
                         backgroundSize: 'cover',
@@ -65,28 +66,39 @@ export default function SignUp() {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{
-                            my: 8,
-                            mx: 4,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             backgroundColor: 'white',
+                            height: '100%', // Ensure Box takes full height
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5" >
-                            {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
-                        </Typography>
-
                         {userType === '' && (
-                            <Box sx={{ mt: 3, textAlign: 'center' }}>
-                                <Typography variant="h4" sx={{ mb: 2, color: '#8bc34a' }}>
+                            <Box sx={{
+                                mt: 3,
+                                textAlign: 'center',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                                borderRadius: '8px',
+                                padding: '80px',
+                                backgroundColor: '#fff',
+                                maxWidth: '400px',
+                                margin: '0 auto',
+                            }}>
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: '64px', height: '64px' }}>
+                                    <LockOutlinedIcon fontSize="large" />
+                                </Avatar>
+                                <Typography variant="h6" sx={{ color: '#8bc34a', fontSize: "22px" }}>
                                     Welcome to Serene SL!
                                 </Typography>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
-                                    Please select your account type:
+                                <Typography component="h1" variant="h5" sx={{ m: 2, color: '#333', fontSize: "28px" }}>
+                                    {userType === 'tourist' ? 'Sign Up as a Tourist' : userType === 'hospital' ? 'Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mb: 3, color: '#666' }}>
+                                    Please select your account type
                                 </Typography>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
@@ -97,10 +109,14 @@ export default function SignUp() {
                                             sx={{
                                                 backgroundColor: '#009688',
                                                 color: 'white',
+                                                '&:hover': {
+                                                    backgroundColor: '#00796b',
+                                                },
+                                                padding: "10px"
                                             }}
-                                            startIcon={<LockOutlinedIcon />}
+                                            startIcon={<EmojiPeopleRoundedIcon />}
                                         >
-                                            As a Tourist
+                                            Tourist
                                         </Button>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -111,18 +127,38 @@ export default function SignUp() {
                                             sx={{
                                                 backgroundColor: '#c2185b',
                                                 color: 'white',
+                                                '&:hover': {
+                                                    backgroundColor: '#a21548',
+                                                },
+                                                padding: "10px"
+
                                             }}
-                                            startIcon={<LockOutlinedIcon />}
+                                            startIcon={<LocalHospitalOutlinedIcon />}
                                         >
-                                            As a Hospital
+                                            Hospital
                                         </Button>
                                     </Grid>
                                 </Grid>
+                                <Typography variant="body2" sx={{ mt: 3, color: '#666' }}>
+                                    Already have an account?{' '}
+                                    <Link href="/signin" variant="body2">
+                                        Sign in
+                                    </Link>
+                                </Typography>
                             </Box>
                         )}
-
                         {userType == 'tourist' && (
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{
+                                mt: 3, textAlign: 'center', display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center', width: '100%', px: 8,
+                            }}>
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5" >
+                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
                                 <TextField
                                     margin="normal"
                                     required
@@ -190,11 +226,27 @@ export default function SignUp() {
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
                                     Back
                                 </Button>
+                                <Typography variant="body2" sx={{ mt: 2, color: '#666' }}>
+                                    Already have an account?{' '}
+                                    <Link href="/signin" variant="body2">
+                                        Sign in
+                                    </Link>
+                                </Typography>
                             </Box>
+
                         )}
 
                         {userType == 'hospital' && (
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{
+                                mt: 3, textAlign: 'center', display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center', width: '100%', px: 8,
+                            }}><Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5" >
+                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
                                 <TextField
                                     margin="normal"
                                     required
@@ -239,15 +291,16 @@ export default function SignUp() {
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
                                     Back
                                 </Button>
+                                <Typography variant="body2" sx={{ mt: 2, color: '#666' }}>
+                                    Already have an account?{' '}
+                                    <Link href="/signin" variant="body2">
+                                        Sign in
+                                    </Link>
+                                </Typography>
                             </Box>
                         )}
 
-                        <Typography variant="body2" sx={{ mt: 2, color: '#666' }}>
-                            Already have an account?{' '}
-                            <Link href="/signin" variant="body2">
-                                Sign in
-                            </Link>
-                        </Typography>
+
                     </Box>
                 </Grid>
             </Grid>
