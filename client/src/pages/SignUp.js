@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmojiPeopleRoundedIcon from '@mui/icons-material/EmojiPeopleRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -55,7 +55,7 @@ export default function SignUp() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://www.tilaksblog.com/wp-content/uploads/2023/04/1588843579185.jpg)',
+                        backgroundImage: 'url(https://www.bestvoyage.in/upload/blog/blog_-2022071406182265.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: '#f7f7f7',
                         backgroundSize: 'cover',
@@ -81,12 +81,12 @@ export default function SignUp() {
                         </Typography>
 
                         {userType === '' && (
-                            <Box sx={{ mt: 3, textAlign: 'center' }}>
+                            <Box sx={{ mt: 3, textAlign: 'center', }}>
                                 <Typography variant="h4" sx={{ mb: 2, color: '#8bc34a' }}>
                                     Welcome to Serene SL!
                                 </Typography>
                                 <Typography variant="h6" sx={{ mb: 2 }}>
-                                    Please select your account type:
+                                    Please select your account type
                                 </Typography>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
@@ -98,9 +98,9 @@ export default function SignUp() {
                                                 backgroundColor: '#009688',
                                                 color: 'white',
                                             }}
-                                            startIcon={<LockOutlinedIcon />}
+                                            startIcon={<EmojiPeopleRoundedIcon />}
                                         >
-                                            As a Tourist
+                                            Tourist
                                         </Button>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -112,9 +112,9 @@ export default function SignUp() {
                                                 backgroundColor: '#c2185b',
                                                 color: 'white',
                                             }}
-                                            startIcon={<LockOutlinedIcon />}
+                                            startIcon={<LocalHospitalIcon />}
                                         >
-                                            As a Hospital
+                                            Hospital
                                         </Button>
                                     </Grid>
                                 </Grid>
