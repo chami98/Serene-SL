@@ -104,6 +104,7 @@ export default function SignInSide() {
                                 label="Remember me"
                             />
                             <Button
+                                component={Link} href="/"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
