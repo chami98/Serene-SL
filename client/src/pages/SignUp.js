@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Autocomplete } from '@mui/material';
 import countries from '../utils/countries';
-
+import { keyframes } from '@emotion/react';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -45,6 +45,21 @@ export default function SignUp() {
             country,
         });
     };
+
+    // Define a keyframe animation
+    const pulseAnimation = keyframes`
+        0% {
+        transform: scale(1);
+        }
+        50% {
+        transform: scale(1.1);
+        }
+        100% {
+        transform: scale(1);
+        }
+        `;
+
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -91,10 +106,14 @@ export default function SignUp() {
                                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: '64px', height: '64px' }}>
                                     <LockOutlinedIcon fontSize="large" />
                                 </Avatar>
-                                <Typography variant="h6" sx={{ color: '#8bc34a', fontSize: "22px" }}>
+                                <Typography variant="h6" sx={{
+                                    color: '#8bc34a',
+                                    fontSize: '22px',
+
+                                }}>
                                     Welcome to Serene SL!
                                 </Typography>
-                                <Typography component="h1" variant="h5" sx={{ m: 2, color: '#333', fontSize: "28px" }}>
+                                <Typography component="h1" variant="h5" sx={{ m: 2, color: '#333', fontSize: "25px", animation: `${pulseAnimation} 2s ease infinite`, }}>
                                     {userType === 'tourist' ? 'Sign Up as a Tourist' : userType === 'hospital' ? 'Sign Up as a Hospital' : 'Get Started Now'}
                                 </Typography>
                                 <Typography variant="body1" sx={{ mb: 3, color: '#666' }}>
@@ -304,6 +323,6 @@ export default function SignUp() {
                     </Box>
                 </Grid>
             </Grid>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
