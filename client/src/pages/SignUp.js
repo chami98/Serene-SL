@@ -73,15 +73,18 @@ export default function SignUp() {
                             backgroundColor: 'white',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5" >
-                            {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
-                        </Typography>
-
                         {userType === '' && (
-                            <Box sx={{ mt: 3, textAlign: 'center', }}>
+                            <Box sx={{
+                                mt: 3, textAlign: 'center', display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}>
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5" >
+                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
                                 <Typography variant="h4" sx={{ mb: 2, color: '#8bc34a' }}>
                                     Welcome to Serene SL!
                                 </Typography>
@@ -122,7 +125,17 @@ export default function SignUp() {
                         )}
 
                         {userType == 'tourist' && (
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{
+                                mt: 3, textAlign: 'center', display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center', width: '100%'
+                            }}>
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5" >
+                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
                                 <TextField
                                     margin="normal"
                                     required
@@ -194,7 +207,16 @@ export default function SignUp() {
                         )}
 
                         {userType == 'hospital' && (
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{
+                                mt: 3, textAlign: 'center', display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center', width: '100%'
+                            }}><Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5" >
+                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                </Typography>
                                 <TextField
                                     margin="normal"
                                     required
