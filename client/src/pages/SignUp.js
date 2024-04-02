@@ -16,34 +16,71 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Autocomplete } from '@mui/material';
 import countries from '../utils/countries';
 import { keyframes } from '@emotion/react';
+import axios from 'axios';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-    const [userType, setUserType] = React.useState('');
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [accountType, setAccountType] = React.useState('');
     const [country, setCountry] = React.useState('');
 
-    const handleUserTypeSelect = (type) => {
-        setUserType(type);
+    const handleaccountTypeSelect = (type) => {
+        setAccountType(type);
     };
 
     const handleBackClick = () => {
-        setUserType('');
+        setAccountType('');
     };
 
     const handleCountryChange = (newValue) => {
-        setCountry(newValue);
+        setCountry(newValue.label);
     };
 
-    const handleSubmit = (event) => {
+    const handleSetName = (name) => {
+        setName(name)
+    };
+
+    const handleSetEmail = (email) => {
+        setEmail(email)
+    };
+
+
+    const handleSetPassword = (password) => {
+        setPassword(password)
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            userType,
-            name: data.get('name'),
-            email: data.get('email'),
-            password: data.get('password'),
-            country,
-        });
+
+        // Check if accountType is "tourist"
+        if (accountType === 'tourist') {
+            try {
+                const response = await axios.post(`http://localhost:5000/signup?accountType=${accountType}`, {
+                    name,
+                    email,
+                    password,
+                    country
+                });
+
+                console.log('User signed up successfully:', response.data.user);
+                // Redirect the user to the sign-in page after successful signup
+                window.location.href = '/signin';
+            } catch (error) {
+                console.error('Error signing up:', error.message);
+                // Handle error (e.g., display error message to the user)
+            }
+        } else {
+            // Log the form data if accountType is not "tourist"
+            console.log({
+                accountType,
+                name,
+                email,
+                password,
+                country
+            });
+        }
     };
 
     // Define a keyframe animation
@@ -89,7 +126,7 @@ export default function SignUp() {
                             height: '100%', // Ensure Box takes full height
                         }}
                     >
-                        {userType === '' && (
+                        {accountType === '' && (
                             <Box sx={{
                                 mt: 3,
                                 textAlign: 'center',
@@ -114,7 +151,7 @@ export default function SignUp() {
                                     Welcome to Serene SL!
                                 </Typography>
                                 <Typography component="h1" variant="h5" sx={{ m: 2, color: '#333', fontSize: "25px", animation: `${pulseAnimation} 2s ease infinite`, }}>
-                                    {userType === 'tourist' ? 'Sign Up as a Tourist' : userType === 'hospital' ? 'Sign Up as a Hospital' : 'Get Started Now'}
+                                    {accountType === 'tourist' ? 'Sign Up as a Tourist' : accountType === 'hospital' ? 'Sign Up as a Hospital' : 'Get Started Now'}
                                 </Typography>
                                 <Typography variant="body1" sx={{ mb: 3, color: '#666' }}>
                                     Please select your account type
@@ -122,7 +159,7 @@ export default function SignUp() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <Button
-                                            onClick={() => handleUserTypeSelect('tourist')}
+                                            onClick={() => handleaccountTypeSelect('tourist')}
                                             variant="contained"
                                             fullWidth
                                             sx={{
@@ -140,7 +177,7 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Button
-                                            onClick={() => handleUserTypeSelect('hospital')}
+                                            onClick={() => handleaccountTypeSelect('hospital')}
                                             variant="contained"
                                             fullWidth
                                             sx={{
@@ -166,7 +203,7 @@ export default function SignUp() {
                                 </Typography>
                             </Box>
                         )}
-                        {userType == 'tourist' && (
+                        {accountType == 'tourist' && (
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{
                                 mt: 3, textAlign: 'center', display: 'flex',
                                 flexDirection: 'column',
@@ -176,7 +213,7 @@ export default function SignUp() {
                                     <LockOutlinedIcon />
                                 </Avatar>
                                 <Typography component="h1" variant="h5" >
-                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                    {accountType === 'tourist' ? ' Sign Up as a Tourist' : accountType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
                                 </Typography>
                                 <TextField
                                     margin="normal"
@@ -187,7 +224,10 @@ export default function SignUp() {
                                     name="name"
                                     autoComplete="name"
                                     autoFocus
+                                    value={name}
+                                    onChange={(e) => handleSetName(e.target.value)}
                                 />
+
                                 <TextField
                                     margin="normal"
                                     required
@@ -196,6 +236,8 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => handleSetEmail(e.target.value)}
                                 />
                                 <TextField
                                     margin="normal"
@@ -206,6 +248,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => handleSetPassword(e.target.value)}
                                 />
                                 <Autocomplete
                                     id="country-select"
@@ -239,7 +283,7 @@ export default function SignUp() {
                                         />
                                     )}
                                 />
-                                <Button component={Link} href="/signin" fullWidth variant="contained" sx={{ mt: 3 }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ mt: 3 }}>
                                     Sign Up
                                 </Button>
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
@@ -255,7 +299,7 @@ export default function SignUp() {
 
                         )}
 
-                        {userType == 'hospital' && (
+                        {accountType == 'hospital' && (
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{
                                 mt: 3, textAlign: 'center', display: 'flex',
                                 flexDirection: 'column',
@@ -264,7 +308,7 @@ export default function SignUp() {
                                     <LockOutlinedIcon />
                                 </Avatar>
                                 <Typography component="h1" variant="h5" >
-                                    {userType === 'tourist' ? ' Sign Up as a Tourist' : userType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
+                                    {accountType === 'tourist' ? ' Sign Up as a Tourist' : accountType === 'hospital' ? ' Sign Up as a Hospital' : 'Get Started Now'}
                                 </Typography>
                                 <TextField
                                     margin="normal"
