@@ -12,36 +12,41 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://serene-sl.web.app/">
-                Serene SL
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+const firebaseConfig = {
+    apiKey: "AIzaSyAIill7SqDkqaA04bQJfTAGYNrXyJ3Vzo8",
+    authDomain: "serene-sl.firebaseapp.com",
+    projectId: "serene-sl",
+    storageBucket: "serene-sl.appspot.com",
+    messagingSenderId: "1010173675366",
+    appId: "1:1010173675366:web:d670d66c5b0567f648aaa7",
+    measurementId: "G-MSRVGDQGVW"
+};
 
-// TODO remove, this demo shouldn't need to reset the theme.
+firebase.initializeApp(firebaseConfig);
 
-const defaultTheme = createTheme();
-
-export default function SignInSide() {
-    const handleSubmit = (event) => {
+function SignInSide({ setAuthenticated }) {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        try {
+            await firebase.auth().signInWithEmailAndPassword(email, password);
+            console.log("Sign in successful!");
+            setAuthenticated(true);
+            localStorage.setItem('isAuthenticated', 'true');
+        } catch (error) {
+            console.error("Error signing in:", error.message);
+            // Handle error, e.g., display error message
+        }
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={createTheme()}>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -104,7 +109,6 @@ export default function SignInSide() {
                                 label="Remember me"
                             />
                             <Button
-                                component={Link} href="/"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -124,7 +128,6 @@ export default function SignInSide() {
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>
                 </Grid>
@@ -132,3 +135,5 @@ export default function SignInSide() {
         </ThemeProvider>
     );
 }
+
+export default SignInSide;

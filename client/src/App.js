@@ -4,9 +4,13 @@ import SignInSide from './pages/SignInSide'
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignUp from './pages/SignUp';
+import { useState } from 'react';
 
 
 function App() {
+
+  const [authenticated, setAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
+
   return (
     <>
       <Router>
@@ -17,7 +21,7 @@ function App() {
           />
           <Route
             path="/signin"
-            element={<SignInSide />}
+            element={!authenticated ? <SignInSide setAuthenticated={setAuthenticated} /> : <Navigate to="/" />}
           />
           <Route
             path="/signup"
