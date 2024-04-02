@@ -4,6 +4,8 @@ import SignInSide from './pages/SignInSide'
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignUp from './pages/SignUp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 
 
@@ -29,6 +31,7 @@ function App() {
             element={<SignUp />}
           />
         </Routes>
+        <ToastContainer />
       </Router>
     </>
   );

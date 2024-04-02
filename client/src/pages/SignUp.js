@@ -17,6 +17,8 @@ import { Autocomplete } from '@mui/material';
 import countries from '../utils/countries';
 import { keyframes } from '@emotion/react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -62,12 +64,25 @@ export default function SignUp() {
     const handleSetHospitalName = (hospitalName) => {
         setHospitalName(hospitalName)
     }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Check if accountType is "tourist"
         if (accountType === 'tourist') {
+            if (!name || !email || !password || !country) {
+                // Show error toast for missing fields
+                toast.error('Please fill in all required fields');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                // Show error toast for invalid email
+                toast.error('Please enter a valid email address');
+                return;
+            }
+            if (password.length < 6) {
+                // Show error toast for password length
+                toast.error('Password must be at least 6 characters long');
+                return;
+            }
             try {
                 const response = await axios.post(`http://localhost:5000/signup?accountType=tourist`, {
                     name,
@@ -76,15 +91,34 @@ export default function SignUp() {
                     country
                 });
 
-                console.log('User signed up successfully:', response.data.user);
+                console.log('Tourist signed up successfully:', response.data.user);
+                // Show success toast
+                toast.success(`Welcome Aboard ${name}!`);
                 // Redirect the user to the sign-in page after successful signup
-                window.location.href = '/signin';
+                setTimeout(() => {
+                    window.location.href = '/signin';
+                }, 1800);
             } catch (error) {
                 console.error('Error signing up:', error.message);
-                // Handle error (e.g., display error message to the user)
+                // Show error toast
+                toast.error('Error signing up');
             }
-        }
-        else if (accountType === 'hospital') {
+        } else if (accountType === 'hospital') {
+            if (!hospitalName || !email || !password || !location) {
+                // Show error toast for missing fields
+                toast.error('Please fill in all required fields');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                // Show error toast for invalid email
+                toast.error('Please enter a valid email address');
+                return;
+            }
+            if (password.length < 6) {
+                // Show error toast for password length
+                toast.error('Password must be at least 6 characters long');
+                return;
+            }
             try {
                 const response = await axios.post(`http://localhost:5000/signup?accountType=hospital`, {
                     hospitalName,
@@ -93,18 +127,19 @@ export default function SignUp() {
                     location
                 });
 
-                console.log('User signed up successfully:', response.data.user);
+                console.log('Hospital signed up successfully:', response.data.user);
+                // Show success toast
+                toast.success(`${hospitalName} Hospital Registration Complete!`);
                 // Redirect the user to the sign-in page after successful signup
-                window.location.href = '/signin';
+                setTimeout(() => {
+                    window.location.href = '/signin';
+                }, 1800);
+
             } catch (error) {
                 console.error('Error signing up:', error.message);
-                // Handle error (e.g., display error message to the user)
+                // Show error toast
+                toast.error('Error signing up');
             }
-
-            console.log(email)
-            console.log(password)
-            console.log(hospitalName)
-            console.log(location)
         } else {
             // Log the form data if accountType is not "tourist"
             console.log({
@@ -116,6 +151,13 @@ export default function SignUp() {
             });
         }
     };
+
+    //email validation regex
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
 
     // Define a keyframe animation
     const pulseAnimation = keyframes`
