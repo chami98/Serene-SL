@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import { mainListItems, secondaryListItems } from '../utils/listItems'
+import { mainListItems, secondaryListItems } from '../utils/touristDrawerListItems'
 
 function Copyright(props) {
     return (
