@@ -16,8 +16,9 @@ function App() {
       <Router>
         <Routes>
           <Route
+            exact
             path="/"
-            element={<Dashboard />}
+            element={authenticated ? <Dashboard /> : <Navigate to="/signin" />}
           />
           <Route
             path="/signin"
