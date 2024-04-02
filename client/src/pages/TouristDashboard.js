@@ -82,7 +82,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function TouristDashboard() {
 
     const isDesktopView = useMediaQuery('(min-width:600px)');
     const [open, setOpen] = React.useState(isDesktopView);
