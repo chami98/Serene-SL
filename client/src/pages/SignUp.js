@@ -25,6 +25,9 @@ export default function SignUp() {
     const [password, setPassword] = React.useState('');
     const [accountType, setAccountType] = React.useState('');
     const [country, setCountry] = React.useState('');
+    const [hospitalName, setHospitalName] = React.useState('');
+    const [location, setLocation] = React.useState('');
+
 
     const handleaccountTypeSelect = (type) => {
         setAccountType(type);
@@ -47,9 +50,18 @@ export default function SignUp() {
     };
 
 
+    const handleSetLocation = (location) => {
+        setLocation(location)
+    };
+
+
     const handleSetPassword = (password) => {
         setPassword(password)
     };
+
+    const handleSetHospitalName = (hospitalName) => {
+        setHospitalName(hospitalName)
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -57,7 +69,7 @@ export default function SignUp() {
         // Check if accountType is "tourist"
         if (accountType === 'tourist') {
             try {
-                const response = await axios.post(`http://localhost:5000/signup?accountType=${accountType}`, {
+                const response = await axios.post(`http://localhost:5000/signup?accountType=tourist`, {
                     name,
                     email,
                     password,
@@ -71,6 +83,28 @@ export default function SignUp() {
                 console.error('Error signing up:', error.message);
                 // Handle error (e.g., display error message to the user)
             }
+        }
+        else if (accountType === 'hospital') {
+            try {
+                const response = await axios.post(`http://localhost:5000/signup?accountType=hospital`, {
+                    hospitalName,
+                    email,
+                    password,
+                    location
+                });
+
+                console.log('User signed up successfully:', response.data.user);
+                // Redirect the user to the sign-in page after successful signup
+                window.location.href = '/signin';
+            } catch (error) {
+                console.error('Error signing up:', error.message);
+                // Handle error (e.g., display error message to the user)
+            }
+
+            console.log(email)
+            console.log(password)
+            console.log(hospitalName)
+            console.log(location)
         } else {
             // Log the form data if accountType is not "tourist"
             console.log({
@@ -319,6 +353,8 @@ export default function SignUp() {
                                     name="hospitalName"
                                     autoComplete="hospitalName"
                                     autoFocus
+                                    value={hospitalName}
+                                    onChange={(e) => handleSetHospitalName(e.target.value)}
                                 />
                                 <TextField
                                     margin="normal"
@@ -328,6 +364,9 @@ export default function SignUp() {
                                     label="Location"
                                     name="location"
                                     autoComplete="location"
+                                    value={location}
+                                    onChange={(e) => handleSetLocation(e.target.value)}
+
                                 />
                                 <TextField
                                     margin="normal"
@@ -337,6 +376,9 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => handleSetEmail(e.target.value)}
+
                                 />
                                 <TextField
                                     margin="normal"
@@ -347,8 +389,11 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => handleSetPassword(e.target.value)}
+
                                 />
-                                <Button component={Link} href="/signin" fullWidth variant="contained" sx={{ mt: 3 }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ mt: 3 }}>
                                     Sign Up
                                 </Button>
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
