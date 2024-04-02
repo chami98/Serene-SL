@@ -17,6 +17,8 @@ import { Autocomplete } from '@mui/material';
 import countries from '../utils/countries';
 import { keyframes } from '@emotion/react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -25,6 +27,9 @@ export default function SignUp() {
     const [password, setPassword] = React.useState('');
     const [accountType, setAccountType] = React.useState('');
     const [country, setCountry] = React.useState('');
+    const [hospitalName, setHospitalName] = React.useState('');
+    const [location, setLocation] = React.useState('');
+
 
     const handleaccountTypeSelect = (type) => {
         setAccountType(type);
@@ -47,29 +52,93 @@ export default function SignUp() {
     };
 
 
+    const handleSetLocation = (location) => {
+        setLocation(location)
+    };
+
+
     const handleSetPassword = (password) => {
         setPassword(password)
     };
 
+    const handleSetHospitalName = (hospitalName) => {
+        setHospitalName(hospitalName)
+    }
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Check if accountType is "tourist"
         if (accountType === 'tourist') {
+            if (!name || !email || !password || !country) {
+                // Show error toast for missing fields
+                toast.error('Please fill in all required fields');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                // Show error toast for invalid email
+                toast.error('Please enter a valid email address');
+                return;
+            }
+            if (password.length < 6) {
+                // Show error toast for password length
+                toast.error('Password must be at least 6 characters long');
+                return;
+            }
             try {
-                const response = await axios.post(`http://localhost:5000/signup?accountType=${accountType}`, {
+                const response = await axios.post(`http://localhost:5000/signup?accountType=tourist`, {
                     name,
                     email,
                     password,
                     country
                 });
 
-                console.log('User signed up successfully:', response.data.user);
+                console.log('Tourist signed up successfully:', response.data.user);
+                // Show success toast
+                toast.success(`Welcome Aboard ${name}!`);
                 // Redirect the user to the sign-in page after successful signup
-                window.location.href = '/signin';
+                setTimeout(() => {
+                    window.location.href = '/signin';
+                }, 1800);
             } catch (error) {
                 console.error('Error signing up:', error.message);
-                // Handle error (e.g., display error message to the user)
+                // Show error toast
+                toast.error('Error signing up');
+            }
+        } else if (accountType === 'hospital') {
+            if (!hospitalName || !email || !password || !location) {
+                // Show error toast for missing fields
+                toast.error('Please fill in all required fields');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                // Show error toast for invalid email
+                toast.error('Please enter a valid email address');
+                return;
+            }
+            if (password.length < 6) {
+                // Show error toast for password length
+                toast.error('Password must be at least 6 characters long');
+                return;
+            }
+            try {
+                const response = await axios.post(`http://localhost:5000/signup?accountType=hospital`, {
+                    hospitalName,
+                    email,
+                    password,
+                    location
+                });
+
+                console.log('Hospital signed up successfully:', response.data.user);
+                // Show success toast
+                toast.success(`${hospitalName} Hospital Registration Complete!`);
+                // Redirect the user to the sign-in page after successful signup
+                setTimeout(() => {
+                    window.location.href = '/signin';
+                }, 1800);
+
+            } catch (error) {
+                console.error('Error signing up:', error.message);
+                // Show error toast
+                toast.error('Error signing up');
             }
         } else {
             // Log the form data if accountType is not "tourist"
@@ -82,6 +151,13 @@ export default function SignUp() {
             });
         }
     };
+
+    //email validation regex
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
 
     // Define a keyframe animation
     const pulseAnimation = keyframes`
@@ -319,6 +395,8 @@ export default function SignUp() {
                                     name="hospitalName"
                                     autoComplete="hospitalName"
                                     autoFocus
+                                    value={hospitalName}
+                                    onChange={(e) => handleSetHospitalName(e.target.value)}
                                 />
                                 <TextField
                                     margin="normal"
@@ -328,6 +406,9 @@ export default function SignUp() {
                                     label="Location"
                                     name="location"
                                     autoComplete="location"
+                                    value={location}
+                                    onChange={(e) => handleSetLocation(e.target.value)}
+
                                 />
                                 <TextField
                                     margin="normal"
@@ -337,6 +418,9 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => handleSetEmail(e.target.value)}
+
                                 />
                                 <TextField
                                     margin="normal"
@@ -347,8 +431,11 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => handleSetPassword(e.target.value)}
+
                                 />
-                                <Button component={Link} href="/signin" fullWidth variant="contained" sx={{ mt: 3 }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ mt: 3 }}>
                                     Sign Up
                                 </Button>
                                 <Button onClick={handleBackClick} variant="outlined" fullWidth sx={{ mt: 2 }}>
