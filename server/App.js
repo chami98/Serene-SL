@@ -13,16 +13,34 @@ admin.initializeApp({
 // Signup endpoint
 app.post('/signup', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { name, email, password, country } = req.body;
+        const accountType = req.query.accountType; // Retrieve accountType from query parameter
 
         // Create user with email and password
         const userRecord = await admin.auth().createUser({
             email: email,
-            password: password
+            password: password,
+            displayName: name
         });
 
+        // Save user details to database
+        await admin.firestore().collection('users').doc(userRecord.uid).set({
+            name: name,
+            email: email,
+            country: country,
+            accountType: accountType
+        });
+
+        const userData = {
+            uid: userRecord.uid,
+            name: name,
+            email: email,
+            country: country,
+            accountType: accountType
+        };
+
         // User created successfully
-        res.status(201).json({ message: 'User signed up successfully', uid: userRecord.uid });
+        res.status(201).json({ message: 'User signed up successfully', user: userData });
     } catch (error) {
         // Error handling
         console.error('Error creating user:', error);
