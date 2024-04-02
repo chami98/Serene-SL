@@ -10,6 +10,24 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import InfoIcon from '@mui/icons-material/Info';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import firebase from 'firebase/compat/app';
+
+
+const handleLogout = async () => {
+    // Sign out user from Firebase
+    firebase.auth()
+        .signOut()
+        .then(() => {
+            console.log('User signed out successfully');
+            localStorage.removeItem('isAuthenticated');
+            window.location.href = '/signin';
+        })
+        .catch((error) => {
+            console.error('Error signing out:', error.message);
+        });
+};
 
 export const mainListItems = (
     <React.Fragment>
@@ -54,7 +72,7 @@ export const secondaryListItems = (
             </ListItemIcon>
             <ListItemText primary="Settings" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={handleLogout}>
             <ListItemIcon>
                 <LogoutIcon />
             </ListItemIcon>
