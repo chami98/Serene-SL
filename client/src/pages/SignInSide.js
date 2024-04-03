@@ -32,7 +32,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function SignInSide({ setAuthenticated }) {
+function SignInSide({ setAuthenticated, setAccountType }) {
 
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -61,8 +61,10 @@ function SignInSide({ setAuthenticated }) {
                 setAuthenticated(true);
                 localStorage.setItem('isAuthenticated', 'true');
                 const accountType = userData.accountType;
+                localStorage.setItem('accountType', accountType);
+                setAccountType(accountType)
                 console.log("accountType:", accountType);
-                toast.success('Signed in successfully!');
+                toast.success('Welcome aboard! You are now signed in!');
             } else {
                 console.error("User data not found.");
                 toast.error('User data not found.');
