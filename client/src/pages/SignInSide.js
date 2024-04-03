@@ -81,7 +81,7 @@ function SignInSide({ setAuthenticated, setAccountType }) {
             }
         } catch (error) {
             console.error("Error signing in:", error.message);
-            toast.error(error.message);
+            toast.error(error.message == 'Firebase: The supplied auth credential is incorrect, malformed or has expired. (auth/invalid-credential).' ? 'You have entered an invalid username or password' : error.message);
         } finally {
             setLoading(false);
         }
