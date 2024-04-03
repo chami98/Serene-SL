@@ -33,7 +33,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function SignInSide({ setAuthenticated, setAccountType, setHospitalName }) {
+function SignInSide({ setAuthenticated, setAccountType, setHospitalName, setTouristName }) {
 
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -64,9 +64,11 @@ function SignInSide({ setAuthenticated, setAccountType, setHospitalName }) {
                 localStorage.setItem('isAuthenticated', 'true');
                 const accountType = userData.accountType;
                 const hospitalName = userData.hospitalName;
+                const touristName = userData.name;
                 localStorage.setItem('accountType', accountType);
                 setAccountType(accountType)
                 setHospitalName(hospitalName)
+                setTouristName(touristName)
                 console.log("accountType:", accountType);
                 toast.success('Welcome aboard! You are now signed in!');
             } else {
