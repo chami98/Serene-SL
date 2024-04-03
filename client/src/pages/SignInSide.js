@@ -17,6 +17,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIill7SqDkqaA04bQJfTAGYNrXyJ3Vzo8",
@@ -30,7 +32,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function SignInSide({ setAuthenticated }) {
+function SignInSide({ setAuthenticated, setAccountType }) {
 
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -59,9 +61,13 @@ function SignInSide({ setAuthenticated }) {
                 setAuthenticated(true);
                 localStorage.setItem('isAuthenticated', 'true');
                 const accountType = userData.accountType;
+                localStorage.setItem('accountType', accountType);
+                setAccountType(accountType)
                 console.log("accountType:", accountType);
+                toast.success('Welcome aboard! You are now signed in!');
             } else {
                 console.error("User data not found.");
+                toast.error('User data not found.');
             }
 
             if (rememberMe) {
@@ -73,7 +79,7 @@ function SignInSide({ setAuthenticated }) {
             }
         } catch (error) {
             console.error("Error signing in:", error.message);
-            // Handle error, e.g., display error message
+            toast.error(error.message);
         }
     };
 

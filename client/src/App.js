@@ -7,12 +7,21 @@ import SignUp from './pages/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+import HospitalDashboard from './pages/HospitalDashboard';
+import { useEffect } from 'react';
 
 
 function App() {
 
   const [authenticated, setAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [accountType, setAccountType] = useState('');
+
+  useEffect(() => {
+    const storedAccountType = localStorage.getItem('accountType');
+    if (storedAccountType) {
+      setAccountType(storedAccountType);
+    }
+  }, []);
 
   return (
     <>
@@ -21,11 +30,15 @@ function App() {
           <Route
             exact
             path="/"
-            element={authenticated ? <TouristDashboard /> : <Navigate to="/signin" />}
+            element={
+              authenticated ?
+                (accountType === 'tourist' ? <TouristDashboard /> : (accountType === 'hospital' ? <HospitalDashboard /> : <Navigate to="/signin" />))
+                : <Navigate to="/signin" />
+            }
           />
           <Route
             path="/signin"
-            element={!authenticated ? <SignInSide setAuthenticated={setAuthenticated} /> : <Navigate to="/" />}
+            element={!authenticated ? <SignInSide setAuthenticated={setAuthenticated} setAccountType={setAccountType} /> : <Navigate to="/" />}
           />
           <Route
             path="/signup"
