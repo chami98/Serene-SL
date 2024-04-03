@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import { mainListItems, secondaryListItems } from '../utils/touristDrawerListItems'
+import { mainListItems, secondaryListItems } from '../utils/hospitalDrawerListItems'
 
 function Copyright(props) {
     return (
@@ -82,7 +82,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const defaultTheme = createTheme();
 
-export default function HospitalDashboard() {
+export default function HospitalDashboard({ hospitalName }) {
 
     const isDesktopView = useMediaQuery('(min-width:600px)');
     const [open, setOpen] = React.useState(isDesktopView);
@@ -158,9 +158,9 @@ export default function HospitalDashboard() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={6} lg={3}>
+                            <Grid item xs={12} md={6} lg={6}>
                                 <Typography variant="h4" component="h2">
-                                    Hospital Dashboard
+                                    {`${hospitalName} Dashboard`}
                                 </Typography>
                             </Grid>
                         </Grid>
