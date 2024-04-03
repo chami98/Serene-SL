@@ -159,7 +159,13 @@ export default function HospitalDashboard({ hospitalName }) {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={6} lg={6}>
-                                <Typography variant="h4" component="h2">
+                                <Typography
+                                    variant="h6"
+                                    component="h2"
+                                    color="textPrimary"
+                                    gutterBottom
+                                    sx={{ mb: '25px' }}
+                                >
                                     {`${hospitalName} Dashboard`}
                                 </Typography>
                             </Grid>

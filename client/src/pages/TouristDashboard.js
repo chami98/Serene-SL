@@ -179,18 +179,16 @@ export default function TouristDashboard({ touristName }) {
 
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                        <Typography
+                            variant="h6"
+                            component="h2"
+                            color="textPrimary"
+                            gutterBottom
+                            sx={{ mb: '25px' }}
+                        >
+                            {`${greeting} ${getEmoji(currentHour)}, ${touristName}`}
+                        </Typography>
 
-                        <Box sx={{ mb: 3 }}>
-                            <Typography
-                                variant="h6"
-                                component="h2"
-                                color="textPrimary"
-                                gutterBottom
-                                sx={{ mb: '20px' }} // Adding margin bottom
-                            >
-                                {`${greeting} ${getEmoji(currentHour)}, ${touristName}`}
-                            </Typography>
-                        </Box>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={6} lg={6}>
                                 <Paper sx={{
