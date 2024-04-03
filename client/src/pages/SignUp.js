@@ -19,6 +19,8 @@ import { keyframes } from '@emotion/react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from '../utils/apiConfig';
+
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -86,7 +88,7 @@ export default function SignUp() {
                 return;
             }
             try {
-                const response = await axios.post(`http://localhost:5000/signup?accountType=tourist`, {
+                const response = await axios.post(`${BASE_URL}/signup?accountType=tourist`, {
                     name,
                     email,
                     password,
@@ -123,7 +125,7 @@ export default function SignUp() {
                 return;
             }
             try {
-                const response = await axios.post(`http://localhost:5000/signup?accountType=hospital`, {
+                const response = await axios.post(`${BASE_URL}/signup?accountType=hospital`, {
                     hospitalName,
                     email,
                     password,
