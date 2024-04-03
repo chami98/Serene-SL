@@ -12,6 +12,7 @@ import { useState } from 'react';
 function App() {
 
   const [authenticated, setAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
+  const [accountType, setAccountType] = useState('');
 
   return (
     <>

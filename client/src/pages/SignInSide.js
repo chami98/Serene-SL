@@ -35,10 +35,18 @@ function SignInSide({ setAuthenticated }) {
         const email = formData.get('email');
         const password = formData.get('password');
         try {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
-            console.log("Sign in successful!");
-            setAuthenticated(true);
-            localStorage.setItem('isAuthenticated', 'true');
+            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            const userDoc = await firebase.firestore().collection('users').doc(userCredential.user.uid).get();
+            if (userDoc.exists) {
+                const userData = userDoc.data();
+                console.log("Signed in successfully!", userData);
+                setAuthenticated(true);
+                localStorage.setItem('isAuthenticated', 'true');
+                const accountType = userData.accountType;
+                console.log("accountType:", accountType);
+            } else {
+                console.error("User data not found.");
+            }
         } catch (error) {
             console.error("Error signing in:", error.message);
             // Handle error, e.g., display error message
