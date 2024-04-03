@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, Backdrop, CircularProgress } from '@mui/material';
 import countries from '../utils/countries';
 import { keyframes } from '@emotion/react';
 import axios from 'axios';
@@ -29,6 +29,7 @@ export default function SignUp() {
     const [country, setCountry] = React.useState('');
     const [hospitalName, setHospitalName] = React.useState('');
     const [location, setLocation] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
 
     const handleaccountTypeSelect = (type) => {
@@ -66,6 +67,7 @@ export default function SignUp() {
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
         if (accountType === 'tourist') {
             if (!name || !email || !password || !country) {
@@ -95,10 +97,11 @@ export default function SignUp() {
                 // Show success toast
                 toast.success(`Welcome Aboard ${name}!`);
                 // Redirect the user to the sign-in page after successful signup
-                setTimeout(() => {
-                    window.location.href = '/signin';
-                }, 1800);
+                setLoading(false);
+                window.location.href = '/signin';
+
             } catch (error) {
+                setLoading(false);
                 console.error('Error signing up:', error.message);
                 // Show error toast
                 toast.error('Error signing up');
@@ -126,16 +129,14 @@ export default function SignUp() {
                     password,
                     location
                 });
-
+                setLoading(false);
                 console.log('Hospital signed up successfully:', response.data.user);
                 // Show success toast
                 toast.success(`${hospitalName} Hospital Registration Complete!`);
                 // Redirect the user to the sign-in page after successful signup
-                setTimeout(() => {
-                    window.location.href = '/signin';
-                }, 1800);
-
+                window.location.href = '/signin';
             } catch (error) {
+                setLoading(false);
                 console.error('Error signing up:', error.message);
                 // Show error toast
                 toast.error('Error signing up');
@@ -453,6 +454,16 @@ export default function SignUp() {
 
                     </Box>
                 </Grid>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                    onClick={() => setLoading(false)}
+                >
+                    <CircularProgress color="inherit" />
+                    <Typography variant="h6" color="inherit" component="div" sx={{ ml: 2 }}>
+                        Signing up...
+                    </Typography>
+                </Backdrop>
             </Grid>
         </ThemeProvider >
     );

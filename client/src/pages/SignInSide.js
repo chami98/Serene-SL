@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIill7SqDkqaA04bQJfTAGYNrXyJ3Vzo8",
@@ -52,6 +53,7 @@ function SignInSide({ setAuthenticated, setAccountType }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         try {
             const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
             const userDoc = await firebase.firestore().collection('users').doc(userCredential.user.uid).get();
@@ -79,7 +81,9 @@ function SignInSide({ setAuthenticated, setAccountType }) {
             }
         } catch (error) {
             console.error("Error signing in:", error.message);
-            toast.error(error.message);
+            toast.error(error.message == 'Firebase: The supplied auth credential is incorrect, malformed or has expired. (auth/invalid-credential).' ? 'You have entered an invalid username or password' : error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -174,6 +178,16 @@ function SignInSide({ setAuthenticated, setAccountType }) {
                         </Box>
                     </Box>
                 </Grid>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                    onClick={() => setLoading(false)}
+                >
+                    <CircularProgress color="inherit" />
+                    <Typography variant="h6" color="inherit" component="div" sx={{ ml: 2 }}>
+                        Signing in...
+                    </Typography>
+                </Backdrop>
             </Grid>
         </ThemeProvider>
     );
