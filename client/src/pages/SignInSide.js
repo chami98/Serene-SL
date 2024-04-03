@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIill7SqDkqaA04bQJfTAGYNrXyJ3Vzo8",
@@ -29,11 +31,25 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function SignInSide({ setAuthenticated }) {
+
+    const [loading, setLoading] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        const storedEmail = localStorage.getItem('rememberedEmail');
+        const storedPassword = localStorage.getItem('rememberedPassword');
+
+        if (storedEmail && storedPassword) {
+            setEmail(storedEmail);
+            setPassword(storedPassword);
+            setRememberMe(true);
+        }
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const email = formData.get('email');
-        const password = formData.get('password');
         try {
             const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
             const userDoc = await firebase.firestore().collection('users').doc(userCredential.user.uid).get();
@@ -46,6 +62,14 @@ function SignInSide({ setAuthenticated }) {
                 console.log("accountType:", accountType);
             } else {
                 console.error("User data not found.");
+            }
+
+            if (rememberMe) {
+                localStorage.setItem('rememberedEmail', email);
+                localStorage.setItem('rememberedPassword', password);
+            } else {
+                localStorage.removeItem('rememberedEmail');
+                localStorage.removeItem('rememberedPassword');
             }
         } catch (error) {
             console.error("Error signing in:", error.message);
@@ -101,6 +125,8 @@ function SignInSide({ setAuthenticated }) {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 margin="normal"
@@ -111,9 +137,12 @@ function SignInSide({ setAuthenticated }) {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+
                             />
                             <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
+                                control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} color="primary" />}
                                 label="Remember me"
                             />
                             <Button
