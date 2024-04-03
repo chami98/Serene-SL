@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import SignInSide from './pages/SignInSide'
-import Dashboard from './pages/Dashboard';
+import TouristDashboard from './pages/TouristDashboard';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +12,7 @@ import { useState } from 'react';
 function App() {
 
   const [authenticated, setAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
+  const [accountType, setAccountType] = useState('');
 
   return (
     <>
@@ -20,7 +21,7 @@ function App() {
           <Route
             exact
             path="/"
-            element={authenticated ? <Dashboard /> : <Navigate to="/signin" />}
+            element={authenticated ? <TouristDashboard /> : <Navigate to="/signin" />}
           />
           <Route
             path="/signin"
