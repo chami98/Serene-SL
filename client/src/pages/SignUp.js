@@ -348,7 +348,7 @@ export default function SignUp() {
                                                 src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                                                 alt=""
                                             />
-                                            {option.label} ({option.code}) +{option.phone}
+                                            {option.label} ({option.code})
                                         </Box>
                                     )}
                                     renderInput={(params) => (
