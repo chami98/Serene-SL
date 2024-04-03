@@ -34,7 +34,7 @@ function App() {
             path="/"
             element={
               authenticated ?
-                (accountType === 'tourist' ? <TouristDashboard /> : (accountType === 'hospital' ? <HospitalDashboard hospitalName={hospitalName} /> : <Navigate to="/signin" />))
+                (accountType === 'tourist' ? <TouristDashboard touristName={touristName} /> : (accountType === 'hospital' ? <HospitalDashboard hospitalName={hospitalName} /> : <Navigate to="/signin" />))
                 : <Navigate to="/signin" />
             }
           />

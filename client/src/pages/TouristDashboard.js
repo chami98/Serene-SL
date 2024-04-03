@@ -82,7 +82,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const defaultTheme = createTheme();
 
-export default function TouristDashboard() {
+export default function TouristDashboard({ touristName }) {
 
     const isDesktopView = useMediaQuery('(min-width:600px)');
     const [open, setOpen] = React.useState(isDesktopView);
@@ -93,6 +93,28 @@ export default function TouristDashboard() {
         }
     };
 
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    let greeting = '';
+
+    if (currentHour >= 0 && currentHour < 12) {
+        greeting = 'Good Morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+        greeting = 'Good Afternoon';
+    } else {
+        greeting = 'Good Evening';
+    }
+
+    function getEmoji(hour) {
+        if (hour >= 5 && hour < 12) {
+            return '☀️';
+        } else if (hour >= 12 && hour < 18) {
+            return '🌤️';
+        } else {
+            return '🌙';
+        }
+    }
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -100,7 +122,7 @@ export default function TouristDashboard() {
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', // keep right padding when drawer closed
+                            pr: '24px',
                         }}
                     >
                         <IconButton
@@ -157,6 +179,18 @@ export default function TouristDashboard() {
 
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
+                        <Box sx={{ mb: 3 }}>
+                            <Typography
+                                variant="h6"
+                                component="h2"
+                                color="textPrimary"
+                                gutterBottom
+                                sx={{ mb: '20px' }} // Adding margin bottom
+                            >
+                                {`${greeting} ${getEmoji(currentHour)}, ${touristName}`}
+                            </Typography>
+                        </Box>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={6} lg={6}>
                                 <Paper sx={{
