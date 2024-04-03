@@ -15,6 +15,8 @@ function App() {
 
   const [authenticated, setAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [accountType, setAccountType] = useState('');
+  const [hospitalName, setHospitalName] = useState('');
+  const [touristName, setTouristName] = useState('');
 
   useEffect(() => {
     const storedAccountType = localStorage.getItem('accountType');
@@ -32,13 +34,13 @@ function App() {
             path="/"
             element={
               authenticated ?
-                (accountType === 'tourist' ? <TouristDashboard /> : (accountType === 'hospital' ? <HospitalDashboard /> : <Navigate to="/signin" />))
+                (accountType === 'tourist' ? <TouristDashboard /> : (accountType === 'hospital' ? <HospitalDashboard hospitalName={hospitalName} /> : <Navigate to="/signin" />))
                 : <Navigate to="/signin" />
             }
           />
           <Route
             path="/signin"
-            element={!authenticated ? <SignInSide setAuthenticated={setAuthenticated} setAccountType={setAccountType} /> : <Navigate to="/" />}
+            element={!authenticated ? <SignInSide setAuthenticated={setAuthenticated} setAccountType={setAccountType} setHospitalName={setHospitalName} setTouristName={setTouristName} /> : <Navigate to="/" />}
           />
           <Route
             path="/signup"
