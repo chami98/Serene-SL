@@ -112,6 +112,11 @@ export default function TouristDashboard({ touristName }) {
         setPlanYourTripVisible(!planYourTripVisible)
         setHomeVisible(!homeVisible)
     }
+
+    const handleHomeClick = () => {
+        setHomeVisible(true)
+        setPlanYourTripVisible(false)
+    }
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -160,7 +165,7 @@ export default function TouristDashboard({ touristName }) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <TouristDrawerContent />
+                        <TouristDrawerContent handleHomeClick={handleHomeClick} />
                     </List>
                 </Drawer>
                 <Box
@@ -174,8 +179,6 @@ export default function TouristDashboard({ touristName }) {
 
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
-
                         {homeVisible &&
                             <>
                                 <Typography
