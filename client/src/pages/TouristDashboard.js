@@ -13,13 +13,15 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import { mainListItems, secondaryListItems } from '../utils/touristDrawerListItems'
 import { useState } from 'react';
+import PlanYourTrip from '../components/PlanYourTrip';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import TouristDrawerContent from '../components/TouristDrawerContent';
 
 const drawerWidth = 240;
 
@@ -106,6 +108,10 @@ export default function TouristDashboard({ touristName }) {
     const [planYourTripVisible, setPlanYourTripVisible] = useState(false)
     const [homeVisible, setHomeVisible] = useState(true)
 
+    const handlePlanYourTripClick = () => {
+        setPlanYourTripVisible(!planYourTripVisible)
+        setHomeVisible(!homeVisible)
+    }
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -154,9 +160,7 @@ export default function TouristDashboard({ touristName }) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ mt: 30 }} />
-                        {secondaryListItems}
+                        <TouristDrawerContent />
                     </List>
                 </Drawer>
                 <Box
@@ -198,8 +202,7 @@ export default function TouristDashboard({ touristName }) {
                                             }
                                         }}
 
-                                            onClick={() => (setPlanYourTripVisible(!planYourTripVisible),
-                                                setHomeVisible(!homeVisible))}
+                                            onClick={() => handlePlanYourTripClick()}
                                         >
                                             <FlightTakeoffIcon sx={{ fontSize: 60, color: '#2196f3' }} /> {/* Icon color */}
                                             <Typography variant="h6" component="h2" sx={{ mt: 2, color: '#212121' }}> {/* Text color */}
@@ -233,7 +236,7 @@ export default function TouristDashboard({ touristName }) {
                                     </Grid>
                                 </Grid>
                             </>}
-                        {planYourTripVisible && <h2>asasa</h2>}
+                        {planYourTripVisible && <PlanYourTrip />}
                     </Container>
                 </Box>
             </Box>

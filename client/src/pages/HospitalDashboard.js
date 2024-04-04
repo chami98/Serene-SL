@@ -12,26 +12,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import { mainListItems, secondaryListItems } from '../utils/hospitalDrawerListItems'
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="http://localhost:3000/">
-                Serene SL
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import HospitalDrawerContent from '../components/HospitalDrawerContent';
 
 const drawerWidth = 240;
 
@@ -141,9 +124,7 @@ export default function HospitalDashboard({ hospitalName }) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ mt: 30 }} />
-                        {secondaryListItems}
+                        <HospitalDrawerContent />
                     </List>
                 </Drawer>
                 <Box
