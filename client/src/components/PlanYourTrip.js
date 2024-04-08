@@ -5,10 +5,14 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import HealthRiskAssessment from './HealthRiskAssessment';
+import MedicalHistory from './MedicalHistory';
+import LifestyleFactors from './LifestyleFactors';
+import CurrentHealthStatus from './CurrentHealthStatus';
+import WellnessPreferences from './WellnessPreferences';
+import Review from './Review';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['Medical History', 'Lifestyle Factors', 'Wellness Preferences', 'Review'];
+const steps = ['Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences', 'Review'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -64,11 +68,23 @@ export default function PlanYourTrip() {
                 </React.Fragment>
             ) : (
                 <React.Fragment>
-                    {activeStep === steps.length - 1 ? (
-                        <HealthRiskAssessment />
-                    ) : (
-                        <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-                    )}
+
+
+                    {(activeStep + 1) === 1 &&
+                        <MedicalHistory />
+                    }
+                    {(activeStep + 1) === 2 &&
+                        <LifestyleFactors />
+                    }
+                    {(activeStep + 1) === 3 &&
+                        <CurrentHealthStatus />
+                    }
+                    {(activeStep + 1) === 4 &&
+                        <WellnessPreferences />
+                    }
+                    {(activeStep + 1) === 5 &&
+                        <Review />
+                    }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
@@ -85,7 +101,6 @@ export default function PlanYourTrip() {
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
                     </Box>
-                    <HealthRiskAssessment />
                 </React.Fragment>
             )}
         </Box>
