@@ -191,7 +191,6 @@ export default function TouristDashboard({ touristName }) {
                                     {`${greeting} ${getEmoji(currentHour)}, ${touristName}`}
                                 </Typography>
                                 <Grid container spacing={3}>
-
                                     <Grid item xs={12} md={6} lg={6}>
                                         <Paper sx={{
                                             height: '100%',
