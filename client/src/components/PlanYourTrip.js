@@ -81,9 +81,6 @@ export default function PlanYourTrip() {
                     {(activeStep + 1) === 4 &&
                         <WellnessPreferences />
                     }
-                    {(activeStep + 1) === 5 &&
-                        <Review />
-                    }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
