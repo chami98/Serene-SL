@@ -12,7 +12,7 @@ import WellnessPreferences from './WellnessPreferences';
 import Review from './Review';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences', 'Review'];
+const steps = ['Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
