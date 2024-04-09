@@ -9,7 +9,6 @@ import MedicalHistory from './MedicalHistory';
 import LifestyleFactors from './LifestyleFactors';
 import CurrentHealthStatus from './CurrentHealthStatus';
 import WellnessPreferences from './WellnessPreferences';
-import Review from './Review';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences'];
