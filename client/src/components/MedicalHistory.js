@@ -39,7 +39,7 @@ export default function MedicalHistory() {
 
     return (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <Paper elevation={3} style={{ padding: '40px', margin: 'auto' }}>
+            <Paper elevation={3} style={{ padding: '20px', margin: 'auto' }}>
                 <Typography variant="h5" component="h2" color="textPrimary" sx={{ marginBottom: '10px' }}>
                     Medical History
                 </Typography>
@@ -97,11 +97,6 @@ export default function MedicalHistory() {
                                 margin="normal"
                                 variant="outlined"
                             />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
-                                Submit
-                            </Button>
                         </Grid>
                     </Grid>
                 </form>
