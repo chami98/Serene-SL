@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -50,6 +48,9 @@ export default function GeneralFactors() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={3} justifyContent="center">
                         <Grid item xs={12} md={6}>
+                            <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
+                                Personal Information
+                            </Typography>
                             <TextField
                                 fullWidth
                                 label="Age"
@@ -85,6 +86,9 @@ export default function GeneralFactors() {
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
+                            <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
+                                Demographics
+                            </Typography>
                             <RadioGroup
                                 aria-label="gender"
                                 name="gender"
