@@ -9,10 +9,11 @@ import MedicalHistory from './MedicalHistory';
 import LifestyleFactors from './LifestyleFactors';
 import CurrentHealthStatus from './CurrentHealthStatus';
 import WellnessPreferences from './WellnessPreferences';
-import Review from './Review';
+import RecommendedHospital from './RecommendedHospital';
+import GeneralFactors from './GeneralFactors';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences', 'Review'];
+const steps = ['General Factors', 'Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -58,9 +59,9 @@ export default function PlanYourTrip() {
             </Stepper>
             {activeStep === steps.length ? (
                 <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
-                    </Typography>
+                    <Box sx={{ mt: 2, mb: 1 }}>
+                        <RecommendedHospital />
+                    </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Box sx={{ flex: '1 1 auto' }} />
                         <Button onClick={handleReset}>Reset</Button>
@@ -69,21 +70,20 @@ export default function PlanYourTrip() {
             ) : (
                 <React.Fragment>
 
-
                     {(activeStep + 1) === 1 &&
-                        <MedicalHistory />
+                        <GeneralFactors />
                     }
                     {(activeStep + 1) === 2 &&
-                        <LifestyleFactors />
+                        <MedicalHistory />
                     }
                     {(activeStep + 1) === 3 &&
-                        <CurrentHealthStatus />
+                        <LifestyleFactors />
                     }
                     {(activeStep + 1) === 4 &&
-                        <WellnessPreferences />
+                        <CurrentHealthStatus />
                     }
                     {(activeStep + 1) === 5 &&
-                        <Review />
+                        <WellnessPreferences />
                     }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
