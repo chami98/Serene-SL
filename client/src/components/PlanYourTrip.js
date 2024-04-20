@@ -6,14 +6,14 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MedicalHistory from './MedicalHistory';
-import LifestyleFactors from './LifestyleFactors';
+import CurrentDiagnosis from './CurrentDiagnosis';
 import CurrentHealthStatus from './CurrentHealthStatus';
 import WellnessPreferences from './WellnessPreferences';
 import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['General Factors', 'Medical History', 'Lifestyle Factors', 'Current Health Status', 'Wellness Preferences'];
+const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Current Health Status', 'Wellness Preferences'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -77,7 +77,7 @@ export default function PlanYourTrip() {
                         <MedicalHistory />
                     }
                     {(activeStep + 1) === 3 &&
-                        <LifestyleFactors />
+                        <CurrentDiagnosis />
                     }
                     {(activeStep + 1) === 4 &&
                         <CurrentHealthStatus />
