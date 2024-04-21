@@ -44,14 +44,14 @@ export default function CurrentDiagnosis({ currentDiagnosis, handleCurrentDiagno
                                     onChange={handleCurrentDiagnosisChange}
                                     name="diagnosis"
                                 >
-                                    <MenuItem value="Acute infection">Acute infection (e.g., respiratory, urinary)</MenuItem>
-                                    <MenuItem value="Chronic condition">Chronic condition (e.g., diabetes, hypertension)</MenuItem>
+                                    <MenuItem value="AcuteInfection">Acute infection (e.g., respiratory, urinary)</MenuItem>
+                                    <MenuItem value="ChronicCondition">Chronic condition (e.g., diabetes, hypertension)</MenuItem>
                                     <MenuItem value="Injury">Injury (e.g., fracture, sprain)</MenuItem>
-                                    <MenuItem value="Neurological disorder">Neurological disorder (e.g., migraine, epilepsy)</MenuItem>
-                                    <MenuItem value="Gastrointestinal issue">Gastrointestinal issue (e.g., gastritis, irritable bowel syndrome)</MenuItem>
-                                    <MenuItem value="Cardiovascular condition">Cardiovascular condition (e.g., heart failure, arrhythmia)</MenuItem>
-                                    <MenuItem value="Dermatological issue">Dermatological issue (e.g., eczema, psoriasis)</MenuItem>
-                                    <MenuItem value="Mental health concern">Mental health concern (e.g., depression, anxiety)</MenuItem>
+                                    <MenuItem value="NeurologicalDisorder">Neurological disorder (e.g., migraine, epilepsy)</MenuItem>
+                                    <MenuItem value="GastrointestinalIssue">Gastrointestinal issue (e.g., gastritis, irritable bowel syndrome)</MenuItem>
+                                    <MenuItem value="CardiovascularCondition">Cardiovascular condition (e.g., heart failure, arrhythmia)</MenuItem>
+                                    <MenuItem value="DermatologicalIssue">Dermatological issue (e.g., eczema, psoriasis)</MenuItem>
+                                    <MenuItem value="MentalHealthConcern">Mental health concern (e.g., depression, anxiety)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

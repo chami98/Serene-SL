@@ -4,12 +4,12 @@ import hospitalData from '../utils/HospitalData';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function RecommendedHospital() {
+export default function RecommendedHospital({ recomendedHospitals }) {
 
     const [hospitals, setHospitals] = useState([]);
 
     useEffect(() => {
-        setHospitals(hospitalData);
+        setHospitals(recomendedHospitals);
     }, []);
     return (
         <>
