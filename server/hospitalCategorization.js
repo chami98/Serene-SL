@@ -1,6 +1,6 @@
 const hospitalCategorization = {
     "hospitals": {
-        "Acute Infection": [
+        "AcuteInfection": [
             {
                 "name": "National Hospital of Sri Lanka",
                 "department": "Department of Microbiology & Infection Control",
@@ -16,17 +16,17 @@ const hospitalCategorization = {
                 "location": "218, Cotta Road, Borella, Sri Lanka",
                 "description": "An ISO 9001:2015 QMS certified hospital with over 30 years of experience in Sri Lanka. Renowned for having the longest standing Kidney Transplantation and Hemodialysis Programme in Sri Lanka.",
                 "url": "https://www.westernhospital.lk/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPZmao2OrtSvuGQhDcS126Sk2DCc96ya2yzTbDvbHRZA&s"
 
             }
         ],
-        "Chronic Condition": [
+        "ChronicCondition": [
             {
                 "name": "Asiri Central Heart Centre",
                 "location": "Colombo, Sri Lanka",
                 "description": "Part of Asiri Health, this centre is dedicated to treating chronic diseases like heart conditions.",
                 "url": "https://www.asiri.lk/asiri-central-hospital",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://asirihealth.com/imgup/treatment/heart/invasive_interventional.jpg"
 
             },
             {
@@ -34,7 +34,7 @@ const hospitalCategorization = {
                 "location": "43 Mahabage Road, Ragama, Western Province, Sri Lanka",
                 "description": "A fully-fledged multi-specialty general healthcare facility equipped with state-of-the-art medical diagnostic technology as well as advanced medical and surgical therapeutic technology.",
                 "url": "https://www.melstahospitals.lk/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLKN2Uf_SIgPtxH424Zy9T6IlOIDPk7pwYfq51wPay_A&s"
 
             }
         ],
@@ -49,13 +49,13 @@ const hospitalCategorization = {
 
             }
         ],
-        "Neurological Disorder": [
+        "NeurologicalDisorder": [
             {
                 "name": "Asiri Brain and Spine Centre",
                 "location": "Colombo, Sri Lanka",
                 "description": "Part of Asiri Health, this centre is dedicated to treating neurological disorders.",
                 "url": "https://www.asiri.lk/asiri-central-hospital",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://asirihealth.com/imgup/brain/information.jpg"
 
             },
             {
@@ -73,19 +73,18 @@ const hospitalCategorization = {
                 "location": "3 Alfred Place, Colombo 03, Sri Lanka",
                 "description": "A multi-speciality private hospital that treats patients visiting from around the world, in Colombo, Sri Lanka.",
                 "url": "https://www.durdans.com/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/170120_Durdans_Hospital_Logo.jpg"
 
             }
         ],
-        "Gastrointestinal Issue": [
+        "GastrointestinalIssue": [
             {
                 "name": "Durdans Hospital",
                 "department": "Gastroenterology",
                 "location": "3 Alfred Place, Colombo 03, Sri Lanka",
                 "description": "A multi-speciality private hospital that treats patients visiting from around the world, in Colombo, Sri Lanka.",
                 "url": "https://www.durdans.com/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
-
+                "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/170120_Durdans_Hospital_Logo.jpg"
             },
             {
                 "name": "National Hospital of Sri Lanka",
@@ -97,13 +96,13 @@ const hospitalCategorization = {
 
             }
         ],
-        "Cardiovascular Condition": [
+        "CardiovascularCondition": [
             {
                 "name": "Asiri Central Heart Centre",
                 "location": "Colombo, Sri Lanka",
                 "description": "Part of Asiri Health, this centre is dedicated to treating cardiovascular conditions.",
                 "url": "https://www.asiri.lk/asiri-central-hospital",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://asirihealth.com/imgup/treatment/heart/invasive_interventional.jpg"
 
             },
             {
@@ -112,11 +111,10 @@ const hospitalCategorization = {
                 "location": "3 Alfred Place, Colombo 03, Sri Lanka",
                 "description": "A multi-speciality private hospital that treats patients visiting from around the world, in Colombo, Sri Lanka.",
                 "url": "https://www.durdans.com/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
-
+                "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/170120_Durdans_Hospital_Logo.jpg"
             }
         ],
-        "Dermatological Issue": [
+        "DermatologicalIssue": [
             {
                 "name": "Durdans Hospital",
                 "department": "Dermatology and Cosmetic Care",
@@ -132,17 +130,17 @@ const hospitalCategorization = {
                 "location": "Harding Avenue, Malpas, Newport, NP20 6ZE",
                 "description": "A private hospital providing a range of services including dermatology.",
                 "url": "https://www.stjosephshospital.co.uk/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://sjhospital.lk/wp-content/uploads/2023/12/St-Jospeh-Hospital-Entrance-1024x399.png"
 
             }
         ],
-        "Mental Health Concern": [
+        "MentalHealthConcern": [
             {
                 "name": "National Institute of Mental Health, Sri Lanka",
                 "location": "B231, Mulleriyawa, Sri Lanka",
                 "description": "The largest tertiary care hospital in Sri Lanka caring for patients with mental illness.",
                 "url": "http://www.nimh.health.gov.lk/",
-                "imageUrl": "https://island.lk/wp-content/uploads/2021/09/genaral-hospital.jpg"
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7UzMd3miz0uQ3beTIOhucHABhnzU1RnEHAhXtwv5yA&s"
 
             }
         ]
