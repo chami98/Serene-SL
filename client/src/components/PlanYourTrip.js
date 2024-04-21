@@ -211,6 +211,16 @@ export default function PlanYourTrip() {
     };
 
     const handleFinish = () => {
+
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+        }
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+
         console.log("General Factors:", generalFactors);
         console.log("Medical History:", medicalHistory);
         console.log("Current Diagnosis:", currentDiagnosis);
