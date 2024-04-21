@@ -290,6 +290,7 @@ export default function PlanYourTrip() {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     height: '100vh',
+
                                 }}
                             >
                                 <CircularProgress color="primary" />
