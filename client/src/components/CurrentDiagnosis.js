@@ -40,7 +40,6 @@ export default function CurrentDiagnosis({ currentDiagnosis, handleCurrentDiagno
                                 <Select
                                     labelId="diagnosis-label"
                                     id="diagnosis-select"
-                                    multiple
                                     value={currentDiagnosis.diagnosis}
                                     onChange={handleCurrentDiagnosisChange}
                                     name="diagnosis"
@@ -76,7 +75,6 @@ export default function CurrentDiagnosis({ currentDiagnosis, handleCurrentDiagno
                                     <MenuItem value="Cough">Cough</MenuItem>
                                     <MenuItem value="Changes in appetite or weight">Changes in appetite or weight</MenuItem>
                                     <MenuItem value="None">None</MenuItem>
-                                    <MenuItem value="Other">Other (specify)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
