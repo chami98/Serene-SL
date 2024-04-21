@@ -11,6 +11,7 @@ import ConsumerLifeStyle from './ConsumerLifeStyle';
 import UserPreferences from './UserPreferences';
 import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
+import { useState } from 'react';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
@@ -34,6 +35,35 @@ export default function PlanYourTrip() {
             ...prevState,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const [medicalHistory, setMedicalHistory] = useState({
+        gender: '',
+        age: '',
+        allergies: [],
+        medications: []
+    });
+
+    const handleMedicalHistoryChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === 'checkbox') {
+            if (checked) {
+                setMedicalHistory(prevState => ({
+                    ...prevState,
+                    [name]: [...medicalHistory[name], value]
+                }));
+            } else {
+                setMedicalHistory(prevState => ({
+                    ...prevState,
+                    [name]: medicalHistory[name].filter(item => item !== value)
+                }));
+            }
+        } else {
+            setMedicalHistory(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     };
 
     const isStepSkipped = (step) => {
@@ -92,7 +122,7 @@ export default function PlanYourTrip() {
                         <GeneralFactors generalFactors={generalFactors} handleGeneralFactors={handleGeneralFactors} />
                     }
                     {(activeStep + 1) === 2 &&
-                        <MedicalHistory />
+                        <MedicalHistory medicalHistory={medicalHistory} handleMedicalHistoryChange={handleMedicalHistoryChange} />
                     }
                     {(activeStep + 1) === 3 &&
                         <CurrentDiagnosis />

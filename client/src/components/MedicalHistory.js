@@ -12,43 +12,9 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-export default function MedicalHistory() {
-    const [formData, setFormData] = useState({
-        gender: '',
-        age: '',
-        allergies: [],
-        medications: []
-    });
+export default function MedicalHistory({ medicalHistory, handleMedicalHistoryChange }) {
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
-        if (type === 'checkbox') {
-            if (checked) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: [...formData[name], value]
-                }));
-            } else {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: formData[name].filter(item => item !== value)
-                }));
-            }
-        } else {
-            setFormData(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        }
-    };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission here
-        console.log(formData);
-        // Provide visual feedback for submission
-        alert('Form submitted successfully!');
-    };
 
     return (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
@@ -56,7 +22,7 @@ export default function MedicalHistory() {
                 <Typography variant="h5" component="h2" color="textPrimary" sx={{ marginBottom: '10px' }}>
                     Medical History
                 </Typography>
-                <form onSubmit={handleSubmit}>
+                <form>
                     <Grid container spacing={3} justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
@@ -67,8 +33,8 @@ export default function MedicalHistory() {
                                 <Select
                                     labelId="gender-label"
                                     id="gender-select"
-                                    value={formData.gender}
-                                    onChange={handleChange}
+                                    value={medicalHistory.gender}
+                                    onChange={handleMedicalHistoryChange}
                                     name="gender"
                                 >
                                     <MenuItem value="male">Male</MenuItem>
@@ -80,8 +46,8 @@ export default function MedicalHistory() {
                                 label="Age"
                                 name="age"
                                 type="number"
-                                value={formData.age}
-                                onChange={handleChange}
+                                value={medicalHistory.age}
+                                onChange={handleMedicalHistoryChange}
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
@@ -97,8 +63,8 @@ export default function MedicalHistory() {
                                     labelId="allergies-label"
                                     id="allergies-select"
                                     multiple
-                                    value={formData.allergies}
-                                    onChange={handleChange}
+                                    value={medicalHistory.allergies}
+                                    onChange={handleMedicalHistoryChange}
                                     name="allergies"
                                 >
                                     <MenuItem value="Medications">Medications</MenuItem>
@@ -114,8 +80,8 @@ export default function MedicalHistory() {
                                     labelId="medications-label"
                                     id="medications-select"
                                     multiple
-                                    value={formData.medications}
-                                    onChange={handleChange}
+                                    value={medicalHistory.medications}
+                                    onChange={handleMedicalHistoryChange}
                                     name="medications"
                                 >
                                     <MenuItem value="Prescription drugs">Prescription drugs</MenuItem>
