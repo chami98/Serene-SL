@@ -7,6 +7,8 @@ const cors = require('cors');
 app.use(bodyParser.json());
 app.use(cors());
 
+const hospitalCategorization = require('./hospitalCategorization')
+
 // Initialize Firebase Admin SDK
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -79,6 +81,28 @@ app.post('/signup', async (req, res) => {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Failed to signup user' });
     }
+});
+
+app.get('/recommend-hospitals', (req, res) => {
+    // Extract categories from the request query
+    const { categories } = req.query;
+
+    if (!categories) {
+        return res.status(400).json({ error: 'Categories are required' });
+    }
+
+    // Split categories string into an array
+    const categoryList = categories.split(',');
+
+    // Prepare recommended hospitals based on categories
+    const recommendedHospitals = {};
+    categoryList.forEach(category => {
+        if (hospitalCategorization.hospitals[category]) {
+            recommendedHospitals[category] = hospitalCategorization.hospitals[category];
+        }
+    });
+
+    res.json(recommendedHospitals);
 });
 
 
