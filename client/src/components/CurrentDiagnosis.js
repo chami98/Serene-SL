@@ -53,7 +53,6 @@ export default function CurrentDiagnosis({ currentDiagnosis, handleCurrentDiagno
                                     <MenuItem value="Cardiovascular condition">Cardiovascular condition (e.g., heart failure, arrhythmia)</MenuItem>
                                     <MenuItem value="Dermatological issue">Dermatological issue (e.g., eczema, psoriasis)</MenuItem>
                                     <MenuItem value="Mental health concern">Mental health concern (e.g., depression, anxiety)</MenuItem>
-                                    <MenuItem value="Other">Other (specify)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

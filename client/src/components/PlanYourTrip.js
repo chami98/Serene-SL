@@ -12,13 +12,13 @@ import UserPreferences from './UserPreferences';
 import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
-
     const [generalFactors, setGeneralFactors] = React.useState({
         age: '',
         height: '',
@@ -28,6 +28,84 @@ export default function PlanYourTrip() {
         maritalStatus: '',
         livingSituation: ''
     });
+    const [medicalHistory, setMedicalHistory] = useState({
+        gender: '',
+        age: '',
+        allergies: [],
+        medications: []
+    });
+
+    const [currentDiagnosis, setCurrentDiagnosis] = useState({
+        diagnosis: [],
+        symptoms: [],
+        symptomDuration: '',
+    });
+
+    const [consumerLifestyle, setConsumerLifestyle] = useState({
+        tobaccoUse: '',
+        exerciseFrequency: '',
+        dietDescription: '',
+    });
+
+    const [userPreferences, setUserPreferences] = useState({
+        destinationPreference: [],
+        travelCompanions: '',
+        budgetRange: '',
+    });
+
+    const [isGeneralFactorsFilled, setIsGeneralFactorsFilled] = useState(false);
+    const [isMedicalHistoryFilled, setIsMedicalHistoryFilled] = useState(false);
+    const [isCurrentDiagnosisFilled, setIsCurrentDiagnosisFilled] = useState(false);
+    const [isConsumerLifestyleFilled, setIsConsumerLifestyleFilled] = useState(false);
+    const [isUserPreferencesFilled, setIsUserPreferencesFilled] = useState(false);
+
+    useEffect(() => {
+        setIsGeneralFactorsFilled(checkIfGeneralFactorsFilled());
+    }, [generalFactors]);
+
+    useEffect(() => {
+        setIsMedicalHistoryFilled(checkIfMedicalHistoryFilled());
+    }, [medicalHistory]);
+
+    useEffect(() => {
+        setIsCurrentDiagnosisFilled(checkIfCurrentDiagnosisFilled());
+    }, [currentDiagnosis]);
+
+    useEffect(() => {
+        setIsConsumerLifestyleFilled(checkIfConsumerLifestyleFilled());
+    }, [consumerLifestyle]);
+
+    useEffect(() => {
+        setIsUserPreferencesFilled(checkIfUserPreferencesFilled());
+    }, [userPreferences]);
+
+    const checkIfGeneralFactorsFilled = () => {
+        const { age, height, weight, gender, occupation, maritalStatus, livingSituation } = generalFactors;
+        return !!age && !!height && !!weight && !!gender && !!occupation && !!maritalStatus && !!livingSituation;
+    };
+
+    const checkIfMedicalHistoryFilled = () => {
+        const { gender, age, allergies, medications } = medicalHistory;
+        return !!gender && !!age && allergies.length > 0 && medications.length > 0;
+    };
+
+    const checkIfCurrentDiagnosisFilled = () => {
+        const { diagnosis, symptoms, symptomDuration } = currentDiagnosis;
+        return !!diagnosis.length && !!symptoms.length && !!symptomDuration;
+    };
+
+    const checkIfConsumerLifestyleFilled = () => {
+        const { tobaccoUse, exerciseFrequency, dietDescription } = consumerLifestyle;
+        return !!tobaccoUse && !!exerciseFrequency && !!dietDescription;
+    };
+
+    const checkIfUserPreferencesFilled = () => {
+        const { destinationPreference, travelCompanions, budgetRange } = userPreferences;
+        return !!destinationPreference.length && !!travelCompanions && !!budgetRange;
+    };
+
+
+
 
     const handleGeneralFactors = (event) => {
         const { name, value, type, checked } = event.target;
@@ -37,12 +115,7 @@ export default function PlanYourTrip() {
         }));
     };
 
-    const [medicalHistory, setMedicalHistory] = useState({
-        gender: '',
-        age: '',
-        allergies: [],
-        medications: []
-    });
+
 
     const handleMedicalHistoryChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -66,11 +139,6 @@ export default function PlanYourTrip() {
         }
     };
 
-    const [currentDiagnosis, setCurrentDiagnosis] = useState({
-        diagnosis: [],
-        symptoms: [],
-        symptomDuration: '',
-    });
 
     const handleCurrentDiagnosisChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -94,11 +162,7 @@ export default function PlanYourTrip() {
         }
     };
 
-    const [consumerLifestyle, setConsumerLifestyle] = useState({
-        tobaccoUse: '',
-        exerciseFrequency: '',
-        dietDescription: '',
-    });
+
 
     const handleConsumerLifestyleChange = (event) => {
         const { name, value } = event.target;
@@ -107,12 +171,6 @@ export default function PlanYourTrip() {
             [name]: value
         }));
     };
-
-    const [userPreferences, setUserPreferences] = useState({
-        destinationPreference: [],
-        travelCompanions: '',
-        budgetRange: '',
-    });
 
     const handleUserPreferencesChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -150,6 +208,15 @@ export default function PlanYourTrip() {
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
+    };
+
+    const handleFinish = () => {
+        console.log("General Factors:", generalFactors);
+        console.log("Medical History:", medicalHistory);
+        console.log("Current Diagnosis:", currentDiagnosis);
+        console.log("Consumer Lifestyle:", consumerLifestyle);
+        console.log("User Preferences:", userPreferences);
+        // Optionally, you can perform any additional actions here, such as sending the data to a server
     };
 
     const handleBack = () => {
@@ -215,10 +282,20 @@ export default function PlanYourTrip() {
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
 
-
-                        <Button onClick={handleNext}>
+                        <Button
+                            onClick={activeStep === steps.length - 1 ? handleFinish : handleNext}
+                            disabled={
+                                (activeStep === 0 && !isGeneralFactorsFilled) ||
+                                (activeStep === 1 && !isMedicalHistoryFilled) ||
+                                (activeStep === 2 && !isCurrentDiagnosisFilled) ||
+                                (activeStep === 3 && !isConsumerLifestyleFilled) ||
+                                (activeStep === 4 && !isUserPreferencesFilled)
+                            }
+                        >
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
+
+
                     </Box>
                 </React.Fragment>
             )}

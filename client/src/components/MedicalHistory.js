@@ -14,8 +14,6 @@ import TextField from '@mui/material/TextField';
 
 export default function MedicalHistory({ medicalHistory, handleMedicalHistoryChange }) {
 
-
-
     return (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <Paper elevation={3} style={{ padding: '20px', margin: 'auto' }}>
