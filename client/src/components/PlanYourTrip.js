@@ -7,16 +7,34 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MedicalHistory from './MedicalHistory';
 import CurrentDiagnosis from './CurrentDiagnosis';
-import CurrentHealthStatus from './CurrentHealthStatus';
-import WellnessPreferences from './WellnessPreferences';
+import ConsumerLifeStyle from './ConsumerLifeStyle';
+import UserPreferences from './UserPreferences';
 import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Current Health Status', 'Wellness Preferences'];
+const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+
+    const [generalFactors, setGeneralFactors] = React.useState({
+        age: '',
+        height: '',
+        weight: '',
+        gender: '',
+        occupation: '',
+        maritalStatus: '',
+        livingSituation: ''
+    });
+
+    const handleGeneralFactors = (event) => {
+        const { name, value, type, checked } = event.target;
+        setGeneralFactors(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -71,7 +89,7 @@ export default function PlanYourTrip() {
                 <React.Fragment>
 
                     {(activeStep + 1) === 1 &&
-                        <GeneralFactors />
+                        <GeneralFactors generalFactors={generalFactors} handleGeneralFactors={handleGeneralFactors} />
                     }
                     {(activeStep + 1) === 2 &&
                         <MedicalHistory />
@@ -80,10 +98,10 @@ export default function PlanYourTrip() {
                         <CurrentDiagnosis />
                     }
                     {(activeStep + 1) === 4 &&
-                        <CurrentHealthStatus />
+                        <ConsumerLifeStyle />
                     }
                     {(activeStep + 1) === 5 &&
-                        <WellnessPreferences />
+                        <UserPreferences />
                     }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button

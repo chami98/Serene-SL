@@ -12,32 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-export default function GeneralFactors() {
-    const [formData, setFormData] = useState({
-        age: '',
-        height: '',
-        weight: '',
-        gender: '',
-        occupation: '',
-        maritalStatus: '',
-        livingSituation: ''
-    });
-
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission here
-        console.log(formData);
-        // Provide visual feedback for submission
-        alert('Form submitted successfully!');
-    };
+export default function GeneralFactors({ generalFactors, handleGeneralFactors }) {
 
     return (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
@@ -45,7 +20,7 @@ export default function GeneralFactors() {
                 <Typography variant="h5" component="h2" color="textPrimary" sx={{ marginBottom: '10px' }}>
                     General Factors
                 </Typography>
-                <form onSubmit={handleSubmit}>
+                <form >
                     <Grid container spacing={3} justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
@@ -55,8 +30,8 @@ export default function GeneralFactors() {
                                 fullWidth
                                 label="Age"
                                 name="age"
-                                value={formData.age}
-                                onChange={handleChange}
+                                value={generalFactors.age}
+                                onChange={handleGeneralFactors}
                                 type="number"
                                 sx={{ marginBottom: '10px' }}
                             />
@@ -64,24 +39,26 @@ export default function GeneralFactors() {
                                 fullWidth
                                 label="Height"
                                 name="height"
-                                value={formData.height}
-                                onChange={handleChange}
+                                value={generalFactors.height}
+                                onChange={handleGeneralFactors}
+                                type="number"
                                 sx={{ marginBottom: '10px' }}
                             />
                             <TextField
                                 fullWidth
                                 label="Weight"
                                 name="weight"
-                                value={formData.weight}
-                                onChange={handleChange}
+                                value={generalFactors.weight}
+                                onChange={handleGeneralFactors}
+                                type="number"
                                 sx={{ marginBottom: '10px' }}
                             />
                             <TextField
                                 fullWidth
                                 label="Occupation"
                                 name="occupation"
-                                value={formData.occupation}
-                                onChange={handleChange}
+                                value={generalFactors.occupation}
+                                onChange={handleGeneralFactors}
                                 sx={{ marginBottom: '10px' }}
                             />
                         </Grid>
@@ -92,8 +69,8 @@ export default function GeneralFactors() {
                             <RadioGroup
                                 aria-label="gender"
                                 name="gender"
-                                value={formData.gender}
-                                onChange={handleChange}
+                                value={generalFactors.gender}
+                                onChange={handleGeneralFactors}
                                 sx={{ marginBottom: '10px' }}
                             >
                                 <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -105,8 +82,8 @@ export default function GeneralFactors() {
                                 <Select
                                     labelId="marital-status-label"
                                     id="marital-status-select"
-                                    value={formData.maritalStatus}
-                                    onChange={handleChange}
+                                    value={generalFactors.maritalStatus}
+                                    onChange={handleGeneralFactors}
                                     name="maritalStatus"
                                 >
                                     <MenuItem value="single">Single</MenuItem>
@@ -120,8 +97,8 @@ export default function GeneralFactors() {
                                 <Select
                                     labelId="living-situation-label"
                                     id="living-situation-select"
-                                    value={formData.livingSituation}
-                                    onChange={handleChange}
+                                    value={generalFactors.livingSituation}
+                                    onChange={handleGeneralFactors}
                                     name="livingSituation"
                                 >
                                     <MenuItem value="alone">Alone</MenuItem>
