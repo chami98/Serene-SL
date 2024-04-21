@@ -10,39 +10,12 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 
-export default function UserPreferences() {
-    const [formData, setFormData] = useState({
-        destinationPreference: [],
-        travelCompanions: '',
-        budgetRange: '',
-    });
-
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
-        if (type === 'checkbox') {
-            if (checked) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: [...formData[name], value]
-                }));
-            } else {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: formData[name].filter(item => item !== value)
-                }));
-            }
-        } else {
-            setFormData(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        }
-    };
+export default function userPreferences({ userPreferences, handleUserPreferencesChange }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
-        console.log(formData);
+        console.log(userPreferences);
         // Provide visual feedback for submission
         alert('Form submitted successfully!');
     };
@@ -62,8 +35,8 @@ export default function UserPreferences() {
                                     labelId="destination-preference-label"
                                     id="destination-preference-select"
                                     multiple
-                                    value={formData.destinationPreference}
-                                    onChange={handleChange}
+                                    value={userPreferences.destinationPreference}
+                                    onChange={handleUserPreferencesChange}
                                     name="destinationPreference"
                                 >
                                     <MenuItem value="Tropical beach resorts">Tropical beach resorts</MenuItem>
@@ -78,8 +51,8 @@ export default function UserPreferences() {
                                 <Select
                                     labelId="travel-companions-label"
                                     id="travel-companions-select"
-                                    value={formData.travelCompanions}
-                                    onChange={handleChange}
+                                    value={userPreferences.travelCompanions}
+                                    onChange={handleUserPreferencesChange}
                                     name="travelCompanions"
                                 >
                                     <MenuItem value="Alone">Alone</MenuItem>
@@ -94,8 +67,8 @@ export default function UserPreferences() {
                                 <Select
                                     labelId="budget-range-label"
                                     id="budget-range-select"
-                                    value={formData.budgetRange}
-                                    onChange={handleChange}
+                                    value={userPreferences.budgetRange}
+                                    onChange={handleUserPreferencesChange}
                                     name="budgetRange"
                                 >
                                     <MenuItem value="Low budget">Low budget</MenuItem>

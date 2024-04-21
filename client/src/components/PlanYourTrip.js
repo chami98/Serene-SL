@@ -108,6 +108,35 @@ export default function PlanYourTrip() {
         }));
     };
 
+    const [userPreferences, setUserPreferences] = useState({
+        destinationPreference: [],
+        travelCompanions: '',
+        budgetRange: '',
+    });
+
+    const handleUserPreferencesChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === 'checkbox') {
+            if (checked) {
+                setUserPreferences(prevState => ({
+                    ...prevState,
+                    [name]: [...userPreferences[name], value]
+                }));
+            } else {
+                setUserPreferences(prevState => ({
+                    ...prevState,
+                    [name]: userPreferences[name].filter(item => item !== value)
+                }));
+            }
+        } else {
+            setUserPreferences(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
+
+
     const isStepSkipped = (step) => {
         return skipped.has(step);
     };
@@ -173,7 +202,7 @@ export default function PlanYourTrip() {
                         <ConsumerLifeStyle consumerLifestyle={consumerLifestyle} handleConsumerLifestyleChange={handleConsumerLifestyleChange} />
                     }
                     {(activeStep + 1) === 5 &&
-                        <UserPreferences />
+                        <UserPreferences userPreferences={userPreferences} handleUserPreferencesChange={handleUserPreferencesChange} />
                     }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
