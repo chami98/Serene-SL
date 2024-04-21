@@ -13,6 +13,8 @@ import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
@@ -36,7 +38,7 @@ export default function PlanYourTrip() {
     });
 
     const [currentDiagnosis, setCurrentDiagnosis] = useState({
-        diagnosis: [],
+        diagnosis: '',
         symptoms: [],
         symptomDuration: '',
     });
@@ -58,6 +60,14 @@ export default function PlanYourTrip() {
     const [isCurrentDiagnosisFilled, setIsCurrentDiagnosisFilled] = useState(false);
     const [isConsumerLifestyleFilled, setIsConsumerLifestyleFilled] = useState(false);
     const [isUserPreferencesFilled, setIsUserPreferencesFilled] = useState(false);
+    const [recomendedHospitals, setRecomendedHospitals] = useState([])
+    const [loading, setLoading] = useState(true);
+
+    const simulateLoading = () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 3000);
+    }
 
     useEffect(() => {
         setIsGeneralFactorsFilled(checkIfGeneralFactorsFilled());
@@ -210,8 +220,7 @@ export default function PlanYourTrip() {
         setSkipped(newSkipped);
     };
 
-    const handleFinish = () => {
-
+    const handleFinish = async () => {
         let newSkipped = skipped;
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
@@ -226,7 +235,25 @@ export default function PlanYourTrip() {
         console.log("Current Diagnosis:", currentDiagnosis);
         console.log("Consumer Lifestyle:", consumerLifestyle);
         console.log("User Preferences:", userPreferences);
-        // Optionally, you can perform any additional actions here, such as sending the data to a server
+
+        try {
+            simulateLoading()
+            // Send GET request to the server
+            const response = await axios.get('http://localhost:5000/recommendation', {
+                params: {
+                    categories: encodeURIComponent(currentDiagnosis.diagnosis)
+                }
+            });
+
+            // Handle the response from the server
+            await setRecomendedHospitals(response.data.RecommendedHospitals);
+
+            console.log("Recommendation response:", recomendedHospitals);
+        } catch (error) {
+            // Handle errors
+            console.error("Error fetching recommendation:", error);
+
+        }
     };
 
     const handleBack = () => {
@@ -255,12 +282,38 @@ export default function PlanYourTrip() {
             </Stepper>
             {activeStep === steps.length ? (
                 <React.Fragment>
-                    <Box sx={{ mt: 2, mb: 1 }}>
-                        <RecommendedHospital />
-                    </Box>
+                    <div>
+                        {loading ? (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100vh',
+                                }}
+                            >
+                                <CircularProgress color="primary" />
+                                <div style={{ marginLeft: '10px', fontSize: '20px' }}>Recommendation On Progress...</div>
+                            </Box>
+                        ) : (
+                            <Box sx={{ mt: 2, mb: 1 }}>
+                                <RecommendedHospital recomendedHospitals={recomendedHospitals} />
+                            </Box>)}
+                    </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+
+                            <Button
+                                color="inherit"
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                sx={{ mr: 1 }}
+                            >
+                                Back
+                            </Button>
+                            <Button onClick={handleReset}>Reset</Button>
+                        </Box>
                     </Box>
                 </React.Fragment>
             ) : (

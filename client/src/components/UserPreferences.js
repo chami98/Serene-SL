@@ -43,7 +43,6 @@ export default function userPreferences({ userPreferences, handleUserPreferences
                                     <MenuItem value="Mountain retreats">Mountain retreats</MenuItem>
                                     <MenuItem value="Urban wellness centers">Urban wellness centers</MenuItem>
                                     <MenuItem value="Rural or countryside retreats">Rural or countryside retreats</MenuItem>
-                                    <MenuItem value="Specific destination">Specific destination (specify)</MenuItem>
                                 </Select>
                             </FormControl>
                             <FormControl fullWidth margin="normal">

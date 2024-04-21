@@ -83,7 +83,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.get('/recommend-hospitals', (req, res) => {
+app.get('/recommendation', (req, res) => {
     // Extract categories from the request query
     const { categories } = req.query;
 
@@ -98,7 +98,7 @@ app.get('/recommend-hospitals', (req, res) => {
     const recommendedHospitals = {};
     categoryList.forEach(category => {
         if (hospitalCategorization.hospitals[category]) {
-            recommendedHospitals[category] = hospitalCategorization.hospitals[category];
+            recommendedHospitals["RecommendedHospitals"] = hospitalCategorization.hospitals[category];
         }
     });
 
