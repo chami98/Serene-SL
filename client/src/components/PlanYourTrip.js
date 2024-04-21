@@ -210,6 +210,15 @@ export default function PlanYourTrip() {
         setSkipped(newSkipped);
     };
 
+    const handleFinish = () => {
+        console.log("General Factors:", generalFactors);
+        console.log("Medical History:", medicalHistory);
+        console.log("Current Diagnosis:", currentDiagnosis);
+        console.log("Consumer Lifestyle:", consumerLifestyle);
+        console.log("User Preferences:", userPreferences);
+        // Optionally, you can perform any additional actions here, such as sending the data to a server
+    };
+
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
@@ -274,7 +283,7 @@ export default function PlanYourTrip() {
                         <Box sx={{ flex: '1 1 auto' }} />
 
                         <Button
-                            onClick={handleNext}
+                            onClick={activeStep === steps.length - 1 ? handleFinish : handleNext}
                             disabled={
                                 (activeStep === 0 && !isGeneralFactorsFilled) ||
                                 (activeStep === 1 && !isMedicalHistoryFilled) ||
@@ -285,6 +294,7 @@ export default function PlanYourTrip() {
                         >
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
+
 
                     </Box>
                 </React.Fragment>
