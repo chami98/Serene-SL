@@ -66,6 +66,77 @@ export default function PlanYourTrip() {
         }
     };
 
+    const [currentDiagnosis, setCurrentDiagnosis] = useState({
+        diagnosis: [],
+        symptoms: [],
+        symptomDuration: '',
+    });
+
+    const handleCurrentDiagnosisChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === 'checkbox') {
+            if (checked) {
+                setCurrentDiagnosis(prevState => ({
+                    ...prevState,
+                    [name]: [...currentDiagnosis[name], value]
+                }));
+            } else {
+                setCurrentDiagnosis(prevState => ({
+                    ...prevState,
+                    [name]: currentDiagnosis[name].filter(item => item !== value)
+                }));
+            }
+        } else {
+            setCurrentDiagnosis(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
+
+    const [consumerLifestyle, setConsumerLifestyle] = useState({
+        tobaccoUse: '',
+        exerciseFrequency: '',
+        dietDescription: '',
+    });
+
+    const handleConsumerLifestyleChange = (event) => {
+        const { name, value } = event.target;
+        setConsumerLifestyle(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const [userPreferences, setUserPreferences] = useState({
+        destinationPreference: [],
+        travelCompanions: '',
+        budgetRange: '',
+    });
+
+    const handleUserPreferencesChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === 'checkbox') {
+            if (checked) {
+                setUserPreferences(prevState => ({
+                    ...prevState,
+                    [name]: [...userPreferences[name], value]
+                }));
+            } else {
+                setUserPreferences(prevState => ({
+                    ...prevState,
+                    [name]: userPreferences[name].filter(item => item !== value)
+                }));
+            }
+        } else {
+            setUserPreferences(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
+
+
     const isStepSkipped = (step) => {
         return skipped.has(step);
     };
@@ -125,13 +196,13 @@ export default function PlanYourTrip() {
                         <MedicalHistory medicalHistory={medicalHistory} handleMedicalHistoryChange={handleMedicalHistoryChange} />
                     }
                     {(activeStep + 1) === 3 &&
-                        <CurrentDiagnosis />
+                        <CurrentDiagnosis currentDiagnosis={currentDiagnosis} handleCurrentDiagnosisChange={handleCurrentDiagnosisChange} />
                     }
                     {(activeStep + 1) === 4 &&
-                        <ConsumerLifeStyle />
+                        <ConsumerLifeStyle consumerLifestyle={consumerLifestyle} handleConsumerLifestyleChange={handleConsumerLifestyleChange} />
                     }
                     {(activeStep + 1) === 5 &&
-                        <UserPreferences />
+                        <UserPreferences userPreferences={userPreferences} handleUserPreferencesChange={handleUserPreferencesChange} />
                     }
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button

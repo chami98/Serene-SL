@@ -15,39 +15,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 
-export default function CurrentDiagnosis() {
-    const [formData, setFormData] = useState({
-        diagnosis: [],
-        symptoms: [],
-        symptomDuration: '',
-    });
+export default function CurrentDiagnosis({ currentDiagnosis, handleCurrentDiagnosisChange }) {
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
-        if (type === 'checkbox') {
-            if (checked) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: [...formData[name], value]
-                }));
-            } else {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: formData[name].filter(item => item !== value)
-                }));
-            }
-        } else {
-            setFormData(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        }
-    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
-        console.log(formData);
+        console.log(currentDiagnosis);
         // Provide visual feedback for submission
         alert('Form submitted successfully!');
     };
@@ -67,8 +41,8 @@ export default function CurrentDiagnosis() {
                                     labelId="diagnosis-label"
                                     id="diagnosis-select"
                                     multiple
-                                    value={formData.diagnosis}
-                                    onChange={handleChange}
+                                    value={currentDiagnosis.diagnosis}
+                                    onChange={handleCurrentDiagnosisChange}
                                     name="diagnosis"
                                 >
                                     <MenuItem value="Acute infection">Acute infection (e.g., respiratory, urinary)</MenuItem>
@@ -90,12 +64,12 @@ export default function CurrentDiagnosis() {
                                     labelId="symptoms-label"
                                     id="symptoms-select"
                                     multiple
-                                    value={formData.symptoms}
-                                    onChange={handleChange}
+                                    value={currentDiagnosis.symptoms}
+                                    onChange={handleCurrentDiagnosisChange}
                                     name="symptoms"
                                 >
                                     <MenuItem value="Fever">Fever</MenuItem>
-                                    <MenuItem value="Pain">Pain (specify location and severity, if known)</MenuItem>
+                                    <MenuItem value="Pain">Pain</MenuItem>
                                     <MenuItem value="Shortness of breath">Shortness of breath</MenuItem>
                                     <MenuItem value="Fatigue">Fatigue</MenuItem>
                                     <MenuItem value="Nausea or vomiting">Nausea or vomiting</MenuItem>
@@ -113,8 +87,8 @@ export default function CurrentDiagnosis() {
                                 <Select
                                     labelId="symptom-duration-label"
                                     id="symptom-duration-select"
-                                    value={formData.symptomDuration}
-                                    onChange={handleChange}
+                                    value={currentDiagnosis.symptomDuration}
+                                    onChange={handleCurrentDiagnosisChange}
                                     name="symptomDuration"
                                 >
                                     <MenuItem value="Less than one week">Less than one week</MenuItem>

@@ -11,25 +11,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 
-export default function ConsumerLifestyle() {
-    const [formData, setFormData] = useState({
-        tobaccoUse: '',
-        exerciseFrequency: '',
-        dietDescription: '',
-    });
+export default function ConsumerLifestyle({ consumerLifestyle, handleConsumerLifestyleChange }) {
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
-        console.log(formData);
+        console.log(consumerLifestyle);
         // Provide visual feedback for submission
         alert('Form submitted successfully!');
     };
@@ -48,8 +36,8 @@ export default function ConsumerLifestyle() {
                                 <Select
                                     labelId="tobacco-use-label"
                                     id="tobacco-use-select"
-                                    value={formData.tobaccoUse}
-                                    onChange={handleChange}
+                                    value={consumerLifestyle.tobaccoUse}
+                                    onChange={handleConsumerLifestyleChange}
                                     name="tobaccoUse"
                                 >
                                     <MenuItem value="Yes, currently smoke">Yes, currently smoke</MenuItem>
@@ -64,8 +52,8 @@ export default function ConsumerLifestyle() {
                                 <Select
                                     labelId="exercise-frequency-label"
                                     id="exercise-frequency-select"
-                                    value={formData.exerciseFrequency}
-                                    onChange={handleChange}
+                                    value={consumerLifestyle.exerciseFrequency}
+                                    onChange={handleConsumerLifestyleChange}
                                     name="exerciseFrequency"
                                 >
                                     <MenuItem value="Daily">Daily</MenuItem>
@@ -82,15 +70,14 @@ export default function ConsumerLifestyle() {
                                 <Select
                                     labelId="diet-description-label"
                                     id="diet-description-select"
-                                    value={formData.dietDescription}
-                                    onChange={handleChange}
+                                    value={consumerLifestyle.dietDescription}
+                                    onChange={handleConsumerLifestyleChange}
                                     name="dietDescription"
                                 >
                                     <MenuItem value="Mostly fruits and vegetables">Mostly fruits and vegetables</MenuItem>
                                     <MenuItem value="Balanced diet including a variety of foods">Balanced diet including a variety of foods</MenuItem>
                                     <MenuItem value="High in processed or fast foods">High in processed or fast foods</MenuItem>
                                     <MenuItem value="Vegetarian or vegan">Vegetarian or vegan</MenuItem>
-                                    <MenuItem value="Other">Other (specify)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
