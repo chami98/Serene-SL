@@ -13,6 +13,7 @@ import RecommendedHospital from './RecommendedHospital';
 import GeneralFactors from './GeneralFactors';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
@@ -211,7 +212,6 @@ export default function PlanYourTrip() {
     };
 
     const handleFinish = () => {
-
         let newSkipped = skipped;
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
@@ -226,7 +226,21 @@ export default function PlanYourTrip() {
         console.log("Current Diagnosis:", currentDiagnosis);
         console.log("Consumer Lifestyle:", consumerLifestyle);
         console.log("User Preferences:", userPreferences);
-        // Optionally, you can perform any additional actions here, such as sending the data to a server
+
+        // Send GET request to the server
+        axios.get('http://localhost:5000/recommendation', {
+            params: {
+                categories: 'Chronic Condition'
+            }
+        })
+            .then(response => {
+                // Handle the response from the server
+                console.log("Recommendation response:", response.data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error("Error fetching recommendation:", error);
+            });
     };
 
     const handleBack = () => {
