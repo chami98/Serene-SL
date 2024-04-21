@@ -94,6 +94,20 @@ export default function PlanYourTrip() {
         }
     };
 
+    const [consumerLifestyle, setConsumerLifestyle] = useState({
+        tobaccoUse: '',
+        exerciseFrequency: '',
+        dietDescription: '',
+    });
+
+    const handleConsumerLifestyleChange = (event) => {
+        const { name, value } = event.target;
+        setConsumerLifestyle(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
     const isStepSkipped = (step) => {
         return skipped.has(step);
     };
@@ -156,7 +170,7 @@ export default function PlanYourTrip() {
                         <CurrentDiagnosis currentDiagnosis={currentDiagnosis} handleCurrentDiagnosisChange={handleCurrentDiagnosisChange} />
                     }
                     {(activeStep + 1) === 4 &&
-                        <ConsumerLifeStyle />
+                        <ConsumerLifeStyle consumerLifestyle={consumerLifestyle} handleConsumerLifestyleChange={handleConsumerLifestyleChange} />
                     }
                     {(activeStep + 1) === 5 &&
                         <UserPreferences />
