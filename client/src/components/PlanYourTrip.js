@@ -15,9 +15,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import Review from './Review';
 
 // Define steps for the health risk assessment questionnaire
-const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences'];
+const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences', 'Review'];
 export default function PlanYourTrip() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -220,14 +221,14 @@ export default function PlanYourTrip() {
         setSkipped(newSkipped);
     };
 
-    const handleFinish = async () => {
+    const handleRecommendHospitals = async () => {
         let newSkipped = skipped;
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(activeStep);
         }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setActiveStep(7);
         setSkipped(newSkipped);
 
         console.log("General Factors:", generalFactors);
@@ -257,7 +258,12 @@ export default function PlanYourTrip() {
     };
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        if (activeStep === 7 || activeStep == 8) {
+            setActiveStep(5);
+
+        } else {
+            setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        }
     };
 
     const handleReset = () => {
@@ -280,7 +286,7 @@ export default function PlanYourTrip() {
                     );
                 })}
             </Stepper>
-            {activeStep === steps.length ? (
+            {activeStep === 7 ? (
                 <React.Fragment>
                     <div>
                         {loading ? (
@@ -335,6 +341,16 @@ export default function PlanYourTrip() {
                     {(activeStep + 1) === 5 &&
                         <UserPreferences userPreferences={userPreferences} handleUserPreferencesChange={handleUserPreferencesChange} />
                     }
+                    {(activeStep + 1) === 6 &&
+                        <Review
+                            generalFactors={generalFactors}
+                            medicalHistory={medicalHistory}
+                            currentDiagnosis={currentDiagnosis}
+                            consumerLifestyle={consumerLifestyle}
+                            userPreferences={userPreferences}
+                        />
+                    }
+
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
@@ -346,18 +362,31 @@ export default function PlanYourTrip() {
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
 
-                        <Button
-                            onClick={activeStep === steps.length - 1 ? handleFinish : handleNext}
-                            disabled={
-                                (activeStep === 0 && !isGeneralFactorsFilled) ||
-                                (activeStep === 1 && !isMedicalHistoryFilled) ||
-                                (activeStep === 2 && !isCurrentDiagnosisFilled) ||
-                                (activeStep === 3 && !isConsumerLifestyleFilled) ||
-                                (activeStep === 4 && !isUserPreferencesFilled)
-                            }
+                        {activeStep !== steps.length - 1 && (<Button
+                            onClick={handleNext}
+                        // disabled={
+                        //     (activeStep === 0 && !isGeneralFactorsFilled) ||
+                        //     (activeStep === 1 && !isMedicalHistoryFilled) ||
+                        //     (activeStep === 2 && !isCurrentDiagnosisFilled) ||
+                        //     (activeStep === 3 && !isConsumerLifestyleFilled) ||
+                        //     (activeStep === 4 && !isUserPreferencesFilled)
+                        // }
                         >
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                        </Button>
+                            Next
+                        </Button>)}
+
+                        {activeStep === steps.length - 1 && (<Button
+                            onClick={handleRecommendHospitals}
+                        >
+                            Recommend Hospitals
+                        </Button>)}
+
+                        {activeStep === steps.length - 1 && (<Button
+                            onClick={handleRecommendHospitals}
+                        >
+                            Recommend Trip Plan
+                        </Button>)}
+
 
 
                     </Box>
