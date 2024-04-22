@@ -25,7 +25,7 @@ const hospitalCategorization = {
                 "name": "Asiri Central Heart Centre",
                 "location": "Colombo,",
                 "description": "Part of Asiri Health, this centre is dedicated to treating chronic diseases like heart conditions.",
-                "url": "https://www.asiri.lk/asiri-central-hospital",
+                "url": "https://www.asirihealth.com/",
                 "imageUrl": "https://asirihealth.com/imgup/treatment/heart/invasive_interventional.jpg"
 
             },
@@ -33,7 +33,7 @@ const hospitalCategorization = {
                 "name": "Melsta Hospitals Ragama",
                 "location": "43 Mahabage Road, Ragama",
                 "description": "A fully-fledged multi-specialty general healthcare facility equipped with state-of-the-art medical diagnostic technology as well as advanced medical and surgical therapeutic technology.",
-                "url": "https://www.melstahospitals.lk/",
+                "url": "https://www.melstahospitalsragama.lk/",
                 "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLKN2Uf_SIgPtxH424Zy9T6IlOIDPk7pwYfq51wPay_A&s"
 
             }
@@ -54,7 +54,7 @@ const hospitalCategorization = {
                 "name": "Asiri Brain and Spine Centre",
                 "location": "Colombo,",
                 "description": "Part of Asiri Health, this centre is dedicated to treating neurological disorders.",
-                "url": "https://www.asiri.lk/asiri-central-hospital",
+                "url": "https://www.asirihealth.com/",
                 "imageUrl": "https://asirihealth.com/imgup/brain/information.jpg"
 
             },
@@ -101,7 +101,7 @@ const hospitalCategorization = {
                 "name": "Asiri Central Heart Centre",
                 "location": "Colombo,",
                 "description": "Part of Asiri Health, this centre is dedicated to treating cardiovascular conditions.",
-                "url": "https://www.asiri.lk/asiri-central-hospital",
+                "url": "https://www.asirihealth.com/",
                 "imageUrl": "https://asirihealth.com/imgup/treatment/heart/invasive_interventional.jpg"
 
             },
@@ -128,7 +128,7 @@ const hospitalCategorization = {
                 "department": "Dermatology",
                 "location": "Harding Avenue, Malpas, Newport, NP20 6ZE",
                 "description": "A private hospital providing a range of services including dermatology.",
-                "url": "https://www.stjosephshospital.co.uk/",
+                "url": "https://sjhospital.lk/",
                 "imageUrl": "https://sjhospital.lk/wp-content/uploads/2023/12/St-Jospeh-Hospital-Entrance-1024x399.png"
 
             }
