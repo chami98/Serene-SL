@@ -23,9 +23,6 @@ export default function MedicalHistory({ medicalHistory, handleMedicalHistoryCha
                 <form>
                     <Grid container spacing={3} justifyContent="center">
                         <Grid item xs={12} >
-                            <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
-                                Allergies and Medications
-                            </Typography>
                             <FormControl fullWidth margin="normal">
                                 <InputLabel id="allergies-label">Do you have any known allergies?</InputLabel>
                                 <Select
