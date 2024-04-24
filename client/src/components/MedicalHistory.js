@@ -22,36 +22,7 @@ export default function MedicalHistory({ medicalHistory, handleMedicalHistoryCha
                 </Typography>
                 <form>
                     <Grid container spacing={3} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
-                                Gender & Age
-                            </Typography>
-                            <FormControl fullWidth margin="normal">
-                                <InputLabel id="gender-label">Gender</InputLabel>
-                                <Select
-                                    labelId="gender-label"
-                                    id="gender-select"
-                                    value={medicalHistory.gender}
-                                    onChange={handleMedicalHistoryChange}
-                                    name="gender"
-                                >
-                                    <MenuItem value="male">Male</MenuItem>
-                                    <MenuItem value="female">Female</MenuItem>
-                                    <MenuItem value="other">Other</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                label="Age"
-                                name="age"
-                                type="number"
-                                value={medicalHistory.age}
-                                onChange={handleMedicalHistoryChange}
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} >
                             <Typography variant="h6" component="h3" color="textPrimary" gutterBottom>
                                 Allergies and Medications
                             </Typography>
@@ -88,6 +59,21 @@ export default function MedicalHistory({ medicalHistory, handleMedicalHistoryCha
                                     <MenuItem value="Herbal remedies">Herbal remedies</MenuItem>
                                 </Select>
                             </FormControl>
+                            <FormControl fullWidth margin="normal">
+                                <InputLabel id="medical-history-label">Have you ever had any surgeries or been hospitalized for medical reasons?</InputLabel>
+                                <Select
+                                    labelId="medical-history-label"
+                                    id="medical-history-select"
+                                    value={medicalHistory.history}
+                                    onChange={handleMedicalHistoryChange}
+                                    name="history"
+                                >
+                                    <MenuItem value="Yes, surgeries">Yes, surgeries</MenuItem>
+                                    <MenuItem value="Yes, hospitalizations">Yes, hospitalizations</MenuItem>
+                                    <MenuItem value="No">No</MenuItem>
+                                </Select>
+                            </FormControl>
+
                         </Grid>
                     </Grid>
                 </form>

@@ -61,8 +61,7 @@ const Review = ({
                                 Medical History
                             </Typography>
                             <StyledList>
-                                <StyledListItem>Gender: {medicalHistory.gender}</StyledListItem>
-                                <StyledListItem>Age: {medicalHistory.age}</StyledListItem>
+                                <StyledListItem>Surgeries or been hospitalized: {medicalHistory.history}</StyledListItem>
                                 <StyledListItem>Allergies: {medicalHistory.allergies.join(', ')}</StyledListItem>
                                 <StyledListItem>Medications: {medicalHistory.medications.join(', ')}</StyledListItem>
                             </StyledList>
