@@ -63,6 +63,8 @@ export default function PlanYourTrip() {
     const [isConsumerLifestyleFilled, setIsConsumerLifestyleFilled] = useState(false);
     const [isUserPreferencesFilled, setIsUserPreferencesFilled] = useState(false);
     const [recomendedHospitals, setRecomendedHospitals] = useState([])
+    const [recommendedAyurvedaHospital, setRecommendedAyurvedaHospital] = useState([])
+    const [recommendedWellnessCenter, setRecommendedWellnessCenter] = useState([])
     const [loading, setLoading] = useState(true);
 
     const simulateLoading = () => {
@@ -248,9 +250,12 @@ export default function PlanYourTrip() {
             });
 
             // Handle the response from the server
-            await setRecomendedHospitals(response.data.RecommendedHospitals);
+            await setRecomendedHospitals(response.data.Hospitals);
+            await setRecommendedWellnessCenter([response.data.WellnessCenter]);
+            await setRecommendedAyurvedaHospital([response.data.AyurvedaHospital]);
+            await console.log(recomendedHospitals)
+            await console.log(recommendedWellnessCenter)
 
-            console.log("Recommendation response:", recomendedHospitals);
         } catch (error) {
             // Handle errors
             console.error("Error fetching recommendation:", error);
@@ -284,7 +289,7 @@ export default function PlanYourTrip() {
             });
 
             // Handle the response from the server
-            await setRecomendedHospitals(response.data.RecommendedHospitals);
+            await setRecomendedHospitals(response.data.Hospitals);
 
             console.log("Recommendation response:", recomendedHospitals);
         } catch (error) {
@@ -341,7 +346,7 @@ export default function PlanYourTrip() {
                             </Box>
                         ) : (
                             <Box sx={{ mt: 2, mb: 1 }}>
-                                <RecommendedHospital recomendedHospitals={recomendedHospitals} />
+                                <RecommendedHospital recomendedHospitals={recomendedHospitals} recommendedAyurvedaHospital={recommendedAyurvedaHospital} recommendedWellnessCenter={recommendedWellnessCenter} />
                             </Box>)}
                     </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -435,17 +440,25 @@ export default function PlanYourTrip() {
                             Next
                         </Button>)}
 
-                        {activeStep === steps.length - 1 && (<Button
-                            onClick={handleRecommendHospitals}
-                        >
-                            Recommend Hospitals
-                        </Button>)}
+                        {activeStep === steps.length - 1 && (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleRecommendHospitals}
+                                    style={{ marginRight: '10px' }}
+                                >
+                                    Get Hospital Recommendations
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={handleRecommendTripPlan}
+                                >
+                                    Get Travel Recommendations
+                                </Button>
+                            </>
+                        )}
 
-                        {activeStep === steps.length - 1 && (<Button
-                            onClick={handleRecommendTripPlan}
-                        >
-                            Recommend Trip Plan
-                        </Button>)}
 
                     </Box>
                 </React.Fragment>

@@ -98,9 +98,19 @@ app.get('/recommendation', (req, res) => {
     const recommendedHospitals = {};
     categoryList.forEach(category => {
         if (hospitalCategorization.hospitals[category]) {
-            recommendedHospitals["RecommendedHospitals"] = hospitalCategorization.hospitals[category];
+            recommendedHospitals["Hospitals"] = hospitalCategorization.hospitals[category];
         }
     });
+
+    // Get a random wellness center
+    const randomWellnessCenter = hospitalCategorization.wellness_centers[Math.floor(Math.random() * hospitalCategorization.wellness_centers.length)];
+
+    // Get a random ayurveda hospital
+    const randomAyurvedaHospital = hospitalCategorization.ayurveda_hospitals[Math.floor(Math.random() * hospitalCategorization.ayurveda_hospitals.length)];
+
+    // Add random wellness center and ayurveda hospital to the response
+    recommendedHospitals["WellnessCenter"] = randomWellnessCenter;
+    recommendedHospitals["AyurvedaHospital"] = randomAyurvedaHospital;
 
     res.json(recommendedHospitals);
 });
