@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 import Review from './Review';
+import RecommendedTripPlan from './RecommendedTripPlan';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences', 'Review'];
@@ -257,6 +258,42 @@ export default function PlanYourTrip() {
         }
     };
 
+    const handleRecommendTripPlan = async () => {
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+        }
+
+        setActiveStep(8);
+        setSkipped(newSkipped);
+
+        console.log("General Factors:", generalFactors);
+        console.log("Medical History:", medicalHistory);
+        console.log("Current Diagnosis:", currentDiagnosis);
+        console.log("Consumer Lifestyle:", consumerLifestyle);
+        console.log("User Preferences:", userPreferences);
+
+        try {
+            simulateLoading()
+            // Send GET request to the server
+            const response = await axios.get('http://localhost:5000/recommendation', {
+                params: {
+                    categories: encodeURIComponent(currentDiagnosis.diagnosis)
+                }
+            });
+
+            // Handle the response from the server
+            await setRecomendedHospitals(response.data.RecommendedHospitals);
+
+            console.log("Recommendation response:", recomendedHospitals);
+        } catch (error) {
+            // Handle errors
+            console.error("Error fetching recommendation:", error);
+
+        }
+    };
+
     const handleBack = () => {
         if (activeStep === 7 || activeStep == 8) {
             setActiveStep(5);
@@ -326,6 +363,29 @@ export default function PlanYourTrip() {
             ) : (
                 <React.Fragment>
 
+                    {activeStep === 8 && (
+                        <>
+                            {loading ? (
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: '100vh',
+
+                                    }}
+                                >
+                                    <CircularProgress color="primary" />
+                                    <div style={{ marginLeft: '10px', fontSize: '20px' }}>Recommendation On Progress...</div>
+                                </Box>
+                            ) : (
+                                <Box sx={{ mt: 2, mb: 1 }}>
+                                    <RecommendedTripPlan />
+                                </Box>)}
+                        </>
+                    )
+                    }
+
                     {(activeStep + 1) === 1 &&
                         <GeneralFactors generalFactors={generalFactors} handleGeneralFactors={handleGeneralFactors} />
                     }
@@ -382,12 +442,10 @@ export default function PlanYourTrip() {
                         </Button>)}
 
                         {activeStep === steps.length - 1 && (<Button
-                            onClick={handleRecommendHospitals}
+                            onClick={handleRecommendTripPlan}
                         >
                             Recommend Trip Plan
                         </Button>)}
-
-
 
                     </Box>
                 </React.Fragment>
