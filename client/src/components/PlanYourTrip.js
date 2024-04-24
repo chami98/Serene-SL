@@ -33,10 +33,9 @@ export default function PlanYourTrip() {
         livingSituation: ''
     });
     const [medicalHistory, setMedicalHistory] = useState({
-        gender: '',
-        age: '',
         allergies: [],
-        medications: []
+        medications: [],
+        history: []
     });
 
     const [currentDiagnosis, setCurrentDiagnosis] = useState({
