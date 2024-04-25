@@ -38,10 +38,10 @@ export default function userPreferences({ userPreferences, handleUserPreferences
                                     onChange={handleUserPreferencesChange}
                                     name="destinationPreference"
                                 >
-                                    <MenuItem value="Tropical beach resorts">Tropical beach resorts</MenuItem>
-                                    <MenuItem value="Mountain retreats">Mountain retreats</MenuItem>
-                                    <MenuItem value="Urban wellness centers">Urban wellness centers</MenuItem>
-                                    <MenuItem value="Rural or countryside retreats">Rural or countryside retreats</MenuItem>
+                                    <MenuItem value="TropicalBeachResorts">Tropical beach resorts</MenuItem>
+                                    <MenuItem value="MountainRetreats">Mountain retreats</MenuItem>
+                                    <MenuItem value="UrbanWellnessCenters">Urban wellness centers</MenuItem>
+                                    <MenuItem value="RuralOrCountrysideRetreats">Rural or countryside retreats</MenuItem>
                                 </Select>
                             </FormControl>
                             <FormControl fullWidth margin="normal">
