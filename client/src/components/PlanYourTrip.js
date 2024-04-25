@@ -308,17 +308,18 @@ export default function PlanYourTrip() {
     };
 
     const handleBack = () => {
-        if (activeStep === 7 || activeStep == 8) {
+        if (activeStep === 7) {
             setActiveStep(5);
 
-        } else {
+        } else if (activeStep == 8) {
+            setActiveStep(7);
+        }
+
+        else {
             setActiveStep((prevActiveStep) => prevActiveStep - 1);
         }
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -433,7 +434,7 @@ export default function PlanYourTrip() {
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
-                            disabled={activeStep === 0}
+                            disabled={activeStep === 0 || activeStep + 1 === 6}
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
@@ -448,7 +449,8 @@ export default function PlanYourTrip() {
                                 (activeStep === 1 && !isMedicalHistoryFilled) ||
                                 (activeStep === 2 && !isCurrentDiagnosisFilled) ||
                                 (activeStep === 3 && !isConsumerLifestyleFilled) ||
-                                (activeStep === 4 && !isUserPreferencesFilled)
+                                (activeStep === 4 && !isUserPreferencesFilled) ||
+                                (activeStep === 8)
                             }
                         >
                             Next
