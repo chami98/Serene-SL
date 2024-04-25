@@ -91,7 +91,7 @@ const Review = ({
                                 User Preferences
                             </Typography>
                             <StyledList>
-                                <StyledListItem>Destination Preference: {userPreferences.destinationPreference.join(', ')}</StyledListItem>
+                                <StyledListItem>Destination Preference: {userPreferences.destinationPreference.replace(/([a-z])([A-Z])/g, '$1 $2')}</StyledListItem>
                                 <StyledListItem>Travel Companions: {userPreferences.travelCompanions}</StyledListItem>
                                 <StyledListItem>Budget Range: {userPreferences.budgetRange}</StyledListItem>
                             </StyledList>
