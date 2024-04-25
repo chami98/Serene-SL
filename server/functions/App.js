@@ -5,6 +5,9 @@ const serviceAccount = require('./serviceAccountKey.json');
 const app = express();
 app.use(bodyParser.json());
 
+const hospitalCategorization = require('./hospitalCategorization')
+const touristDestinations = require('./touristDestinations')
+
 // Initialize Firebase Admin SDK
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -77,6 +80,61 @@ app.post('/signup', async (req, res) => {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Failed to signup user' });
     }
+});
+
+app.get('/hospitalRecommendation', (req, res) => {
+    // Extract categories from the request query
+    const { categories } = req.query;
+
+    if (!categories) {
+        return res.status(400).json({ error: 'Categories are required' });
+    }
+
+    // Split categories string into an array
+    const categoryList = categories.split(',');
+
+    // Prepare recommended hospitals based on categories
+    const recommendedHospitals = {};
+    categoryList.forEach(category => {
+        if (hospitalCategorization.hospitals[category]) {
+            recommendedHospitals["Hospitals"] = hospitalCategorization.hospitals[category];
+        }
+    });
+
+    // Get a random wellness center
+    const randomWellnessCenter = hospitalCategorization.wellness_centers[Math.floor(Math.random() * hospitalCategorization.wellness_centers.length)];
+
+    // Get a random ayurveda hospital
+    const randomAyurvedaHospital = hospitalCategorization.ayurveda_hospitals[Math.floor(Math.random() * hospitalCategorization.ayurveda_hospitals.length)];
+
+    // Add random wellness center and ayurveda hospital to the response
+    recommendedHospitals["WellnessCenter"] = randomWellnessCenter;
+    recommendedHospitals["AyurvedaHospital"] = randomAyurvedaHospital;
+
+    res.json(recommendedHospitals);
+});
+
+app.get('/destinationRecommendation', (req, res) => {
+    // Extract categories from the request query
+    const { categories } = req.query;
+
+    if (!categories) {
+        return res.status(400).json({ error: 'Categories are required' });
+    }
+
+    // Split categories string into an array
+    const categoryList = categories.split(',');
+
+    // Prepare recommended hospitals based on categories
+    const recommendedDestinations = {};
+    categoryList.forEach(category => {
+        if (touristDestinations.destinations[category]) {
+            recommendedDestinations["Destinations"] = touristDestinations.destinations[category];
+        }
+    });
+
+
+    res.json(recommendedDestinations);
 });
 
 

@@ -34,7 +34,6 @@ export default function userPreferences({ userPreferences, handleUserPreferences
                                 <Select
                                     labelId="destination-preference-label"
                                     id="destination-preference-select"
-                                    multiple
                                     value={userPreferences.destinationPreference}
                                     onChange={handleUserPreferencesChange}
                                     name="destinationPreference"

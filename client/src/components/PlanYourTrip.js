@@ -242,7 +242,7 @@ export default function PlanYourTrip() {
         try {
             simulateLoading()
             // Send GET request to the server
-            const response = await axios.get('http://localhost:5000/recommendation', {
+            const response = await axios.get('https://us-central1-serene-sl.cloudfunctions.net/SereneSL/hospitalRecommendation', {
                 params: {
                     categories: encodeURIComponent(currentDiagnosis.diagnosis)
                 }
