@@ -64,12 +64,20 @@ export default function PlanYourTrip() {
     const [recomendedHospitals, setRecomendedHospitals] = useState([])
     const [recommendedAyurvedaHospital, setRecommendedAyurvedaHospital] = useState([])
     const [recommendedWellnessCenter, setRecommendedWellnessCenter] = useState([])
+    const [recommendedDestinations, setRecommendedDestinations] = useState([])
     const [loading, setLoading] = useState(true);
+    const [loadingDestination, setLoadingDestination] = useState(true);
 
-    const simulateLoading = () => {
+    const simulateLoadingHospital = () => {
         setTimeout(() => {
             setLoading(false)
-        }, 3000);
+        }, 2500);
+    }
+
+    const simulateLoadingDestination = () => {
+        setTimeout(() => {
+            setLoadingDestination(false)
+        }, 2500);
     }
 
     useEffect(() => {
@@ -98,8 +106,8 @@ export default function PlanYourTrip() {
     };
 
     const checkIfMedicalHistoryFilled = () => {
-        const { gender, age, allergies, medications } = medicalHistory;
-        return !!gender && !!age && allergies.length > 0 && medications.length > 0;
+        const { allergies, medications, history } = medicalHistory;
+        return allergies.length > 0 && medications.length > 0 && history.length > 0;
     };
 
     const checkIfCurrentDiagnosisFilled = () => {
@@ -240,7 +248,6 @@ export default function PlanYourTrip() {
         console.log("User Preferences:", userPreferences);
 
         try {
-            simulateLoading()
             // Send GET request to the server
             const response = await axios.get('https://us-central1-serene-sl.cloudfunctions.net/SereneSL/hospitalRecommendation', {
                 params: {
@@ -254,6 +261,8 @@ export default function PlanYourTrip() {
             await setRecommendedAyurvedaHospital([response.data.AyurvedaHospital]);
             await console.log(recomendedHospitals)
             await console.log(recommendedWellnessCenter)
+            simulateLoadingHospital()
+
 
         } catch (error) {
             // Handle errors
@@ -279,18 +288,18 @@ export default function PlanYourTrip() {
         console.log("User Preferences:", userPreferences);
 
         try {
-            simulateLoading()
+            simulateLoadingDestination()
             // Send GET request to the server
-            const response = await axios.get('http://localhost:5000/recommendation', {
+            const response = await axios.get('https://us-central1-serene-sl.cloudfunctions.net/SereneSL/destinationRecommendation', {
                 params: {
-                    categories: encodeURIComponent(currentDiagnosis.diagnosis)
+                    categories: encodeURIComponent(userPreferences.destinationPreference)
                 }
             });
 
             // Handle the response from the server
-            await setRecomendedHospitals(response.data.Hospitals);
+            await setRecommendedDestinations(response.data.Destinations);
 
-            console.log("Recommendation response:", recomendedHospitals);
+            console.log("Recommendation destinations:", recommendedDestinations);
         } catch (error) {
             // Handle errors
             console.error("Error fetching recommendation:", error);
@@ -299,17 +308,18 @@ export default function PlanYourTrip() {
     };
 
     const handleBack = () => {
-        if (activeStep === 7 || activeStep == 8) {
+        if (activeStep === 7) {
             setActiveStep(5);
 
-        } else {
+        } else if (activeStep == 8) {
+            setActiveStep(7);
+        }
+
+        else {
             setActiveStep((prevActiveStep) => prevActiveStep - 1);
         }
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -360,7 +370,13 @@ export default function PlanYourTrip() {
                             >
                                 Back
                             </Button>
-                            <Button onClick={handleReset}>Reset</Button>
+                            {!loading && (<Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleRecommendTripPlan}
+                            >
+                                Get Travel Recommendations
+                            </Button>)}
                         </Box>
                     </Box>
                 </React.Fragment>
@@ -369,7 +385,7 @@ export default function PlanYourTrip() {
 
                     {activeStep === 8 && (
                         <>
-                            {loading ? (
+                            {loadingDestination ? (
                                 <Box
                                     sx={{
                                         display: 'flex',
@@ -384,7 +400,7 @@ export default function PlanYourTrip() {
                                 </Box>
                             ) : (
                                 <Box sx={{ mt: 2, mb: 1 }}>
-                                    <RecommendedTripPlan />
+                                    <RecommendedTripPlan recommendedDestinations={recommendedDestinations} />
                                 </Box>)}
                         </>
                     )
@@ -418,7 +434,7 @@ export default function PlanYourTrip() {
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
-                            disabled={activeStep === 0}
+                            disabled={activeStep === 0 || activeStep + 1 === 6}
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
@@ -428,13 +444,14 @@ export default function PlanYourTrip() {
 
                         {activeStep !== steps.length - 1 && (<Button
                             onClick={handleNext}
-                        // disabled={
-                        //     (activeStep === 0 && !isGeneralFactorsFilled) ||
-                        //     (activeStep === 1 && !isMedicalHistoryFilled) ||
-                        //     (activeStep === 2 && !isCurrentDiagnosisFilled) ||
-                        //     (activeStep === 3 && !isConsumerLifestyleFilled) ||
-                        //     (activeStep === 4 && !isUserPreferencesFilled)
-                        // }
+                            disabled={
+                                (activeStep === 0 && !isGeneralFactorsFilled) ||
+                                (activeStep === 1 && !isMedicalHistoryFilled) ||
+                                (activeStep === 2 && !isCurrentDiagnosisFilled) ||
+                                (activeStep === 3 && !isConsumerLifestyleFilled) ||
+                                (activeStep === 4 && !isUserPreferencesFilled) ||
+                                (activeStep === 8)
+                            }
                         >
                             Next
                         </Button>)}
@@ -443,22 +460,14 @@ export default function PlanYourTrip() {
                             <>
                                 <Button
                                     variant="contained"
+                                    color="secondary"
                                     onClick={handleRecommendHospitals}
                                     style={{ marginRight: '10px' }}
                                 >
                                     Get Hospital Recommendations
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    onClick={handleRecommendTripPlan}
-                                >
-                                    Get Travel Recommendations
-                                </Button>
                             </>
                         )}
-
-
                     </Box>
                 </React.Fragment>
             )}

@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const hospitalCategorization = require('./hospitalCategorization')
-const touristDestinations = require('./touristDestinations')
+const touristDestinations = require('./functions/touristDestinations')
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
