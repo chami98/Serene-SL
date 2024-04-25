@@ -12,7 +12,7 @@ const RecommendedTripPlan = () => {
                     gutterBottom
                     sx={{ mb: '25px' }}
                 >
-                    Recommended Trip Plan
+                    Recommended Travel Destinations
                 </Typography>
             </Box>
         </>
