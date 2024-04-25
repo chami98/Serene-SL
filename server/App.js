@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const hospitalCategorization = require('./hospitalCategorization')
+const touristDestinations = require('./touristDestinations')
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -83,7 +84,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.get('/recommendation', (req, res) => {
+app.get('/hospitalRecommendation', (req, res) => {
     // Extract categories from the request query
     const { categories } = req.query;
 
@@ -113,6 +114,29 @@ app.get('/recommendation', (req, res) => {
     recommendedHospitals["AyurvedaHospital"] = randomAyurvedaHospital;
 
     res.json(recommendedHospitals);
+});
+
+app.get('/destinationRecommendation', (req, res) => {
+    // Extract categories from the request query
+    const { categories } = req.query;
+
+    if (!categories) {
+        return res.status(400).json({ error: 'Categories are required' });
+    }
+
+    // Split categories string into an array
+    const categoryList = categories.split(',');
+
+    // Prepare recommended hospitals based on categories
+    const recommendedDestinations = {};
+    categoryList.forEach(category => {
+        if (touristDestinations.destinations[category]) {
+            recommendedDestinations["Destinations"] = touristDestinations.destinations[category];
+        }
+    });
+
+
+    res.json(recommendedDestinations);
 });
 
 
