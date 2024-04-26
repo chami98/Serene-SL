@@ -241,11 +241,6 @@ export default function PlanYourTrip() {
         setActiveStep(7);
         setSkipped(newSkipped);
 
-        console.log("General Factors:", generalFactors);
-        console.log("Medical History:", medicalHistory);
-        console.log("Current Diagnosis:", currentDiagnosis);
-        console.log("Consumer Lifestyle:", consumerLifestyle);
-        console.log("User Preferences:", userPreferences);
 
         try {
             // Send GET request to the server
@@ -281,12 +276,6 @@ export default function PlanYourTrip() {
         setActiveStep(8);
         setSkipped(newSkipped);
 
-        console.log("General Factors:", generalFactors);
-        console.log("Medical History:", medicalHistory);
-        console.log("Current Diagnosis:", currentDiagnosis);
-        console.log("Consumer Lifestyle:", consumerLifestyle);
-        console.log("User Preferences:", userPreferences);
-
         try {
             simulateLoadingDestination()
             // Send GET request to the server
@@ -312,6 +301,10 @@ export default function PlanYourTrip() {
             setActiveStep(5);
 
         } else if (activeStep == 8) {
+            setActiveStep(7);
+        }
+
+        else if (activeStep == 9) {
             setActiveStep(7);
         }
 
@@ -355,7 +348,7 @@ export default function PlanYourTrip() {
                             </Box>
                         ) : (
                             <Box sx={{ mt: 2, mb: 1 }}>
-                                <RecommendedHospital recomendedHospitals={recomendedHospitals} recommendedAyurvedaHospital={recommendedAyurvedaHospital} recommendedWellnessCenter={recommendedWellnessCenter} />
+                                <RecommendedHospital recomendedHospitals={recomendedHospitals} recommendedAyurvedaHospital={recommendedAyurvedaHospital} recommendedWellnessCenter={recommendedWellnessCenter} setActiveStep={setActiveStep} />
                             </Box>)}
                     </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
