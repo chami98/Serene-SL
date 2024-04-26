@@ -427,7 +427,7 @@ export default function PlanYourTrip() {
                     }
 
                     {(activeStep + 1) === 10 &&
-                        <ItenaryAndTreatmentPlan selectedHospital={selectedHospital} />
+                        <ItenaryAndTreatmentPlan selectedHospital={selectedHospital} condition={currentDiagnosis.diagnosis} />
                     }
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
