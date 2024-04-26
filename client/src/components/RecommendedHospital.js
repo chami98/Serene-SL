@@ -1,12 +1,12 @@
 import React from 'react'
-import { Card, CardContent, Typography, CardMedia, Grid, Box } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, Grid, Box, hslToRgb } from '@mui/material';
 import hospitalData from '../utils/HospitalData';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
-export default function RecommendedHospital({ recomendedHospitals, recommendedWellnessCenter, recommendedAyurvedaHospital, setActiveStep }) {
+export default function RecommendedHospital({ recomendedHospitals, recommendedWellnessCenter, recommendedAyurvedaHospital, setActiveStep, setSelectedHospital }) {
 
     const [hospitals, setHospitals] = useState([]);
     const [wellnessCenter, setWellnessCenter] = useState([]);
@@ -23,9 +23,10 @@ export default function RecommendedHospital({ recomendedHospitals, recommendedWe
     };
 
 
-    const handleHospital = () => {
+    const handleHospital = (hospital) => {
         setActiveStep(9);
         console.log('clicked')
+        setSelectedHospital(hospital)
     }
 
     const handleHover = (e) => {
@@ -55,7 +56,7 @@ export default function RecommendedHospital({ recomendedHospitals, recommendedWe
                             style={{ ...cardStyles, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
                             onMouseEnter={handleHover}
                             onMouseLeave={handleHoverOut}
-                            onClick={() => handleHospital()}
+                            onClick={() => handleHospital(hospital)}
 
                         >
                             <CardMedia
