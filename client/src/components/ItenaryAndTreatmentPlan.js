@@ -8,7 +8,7 @@ export default function ItineraryAndTreatmentPlan({ selectedHospital }) {
     useEffect(() => {
         const fetchItineraryData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000 /itinerary');
+                const response = await axios.get('https://us-central1-serene-sl.cloudfunctions.net/SereneSL/itinerary');
                 setItineraryData(response.data);
             } catch (error) {
                 console.error('Error fetching itinerary data:', error);
