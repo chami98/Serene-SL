@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, Typography, CardMedia, Grid, Box, hslToRgb } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, Grid, Box, hslToRgb, Button } from '@mui/material';
 import hospitalData from '../utils/HospitalData';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -50,14 +50,11 @@ export default function RecommendedHospital({ recomendedHospitals, recommendedWe
             </Box>
             <Grid container spacing={3} justifyContent="center">
                 {hospitals.map((hospital, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}
-                    >
+                    <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card
                             style={{ ...cardStyles, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
                             onMouseEnter={handleHover}
                             onMouseLeave={handleHoverOut}
-                            onClick={() => handleHospital(hospital)}
-
                         >
                             <CardMedia
                                 component="img"
@@ -75,15 +72,23 @@ export default function RecommendedHospital({ recomendedHospitals, recommendedWe
                                 <Typography variant="body2" component="p">
                                     {hospital.location}
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p" display="inline">
-                                    <LocalPhoneIcon style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                                    {hospital.phoneNumber}
-                                </Typography>
+                                <div style={{ display: "flex", flexDirection: 'column' }}>
+                                    <Typography variant="body2" color="textSecondary" component="p" display="inline">
+                                        <LocalPhoneIcon style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                                        {hospital.phoneNumber}
+                                    </Typography>
+
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        onClick={() => handleHospital(hospital)}
+                                        style={{ marginTop: '10px' }}
+                                    >Generate Itenary & Treatment Plan
+                                    </Button>
+                                </div>
 
                             </CardContent>
-
                         </Card>
-
                     </Grid>
                 ))}
             </Grid>

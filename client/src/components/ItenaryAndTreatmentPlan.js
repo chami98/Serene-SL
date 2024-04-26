@@ -28,7 +28,7 @@ export default function ItineraryAndTreatmentPlan({ selectedHospital, condition 
     useEffect(() => {
         const fetchTreatmentData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/treatmentPlan/${condition}`);
+                const response = await axios.get(`https://us-central1-serene-sl.cloudfunctions.net/SereneSL/treatmentPlan/${condition}`);
                 await console.log("asasa", response.data)
                 setTreatmentData(response.data);
             } catch (error) {
