@@ -9,6 +9,8 @@ app.use(cors());
 
 const hospitalCategorization = require('./hospitalCategorization')
 const touristDestinations = require('./functions/touristDestinations')
+const itineraryData = require('./itineraryData')
+
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -137,6 +139,10 @@ app.get('/destinationRecommendation', (req, res) => {
 
 
     res.json(recommendedDestinations);
+});
+
+app.get('/itinerary', (req, res) => {
+    res.json(itineraryData);
 });
 
 

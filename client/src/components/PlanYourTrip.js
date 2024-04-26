@@ -17,6 +17,7 @@ import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 import Review from './Review';
 import RecommendedTripPlan from './RecommendedTripPlan';
+import ItenaryAndTreatmentPlan from './ItenaryAndTreatmentPlan';
 
 // Define steps for the health risk assessment questionnaire
 const steps = ['General Factors', 'Medical History', 'Current diagnosis', 'Consumer Lifestyle', 'User Preferences', 'Review'];
@@ -67,6 +68,7 @@ export default function PlanYourTrip() {
     const [recommendedDestinations, setRecommendedDestinations] = useState([])
     const [loading, setLoading] = useState(true);
     const [loadingDestination, setLoadingDestination] = useState(true);
+    const [selectedHospital, setSelectedHospital] = useState({});
 
     const simulateLoadingHospital = () => {
         setTimeout(() => {
@@ -241,11 +243,6 @@ export default function PlanYourTrip() {
         setActiveStep(7);
         setSkipped(newSkipped);
 
-        console.log("General Factors:", generalFactors);
-        console.log("Medical History:", medicalHistory);
-        console.log("Current Diagnosis:", currentDiagnosis);
-        console.log("Consumer Lifestyle:", consumerLifestyle);
-        console.log("User Preferences:", userPreferences);
 
         try {
             // Send GET request to the server
@@ -281,12 +278,6 @@ export default function PlanYourTrip() {
         setActiveStep(8);
         setSkipped(newSkipped);
 
-        console.log("General Factors:", generalFactors);
-        console.log("Medical History:", medicalHistory);
-        console.log("Current Diagnosis:", currentDiagnosis);
-        console.log("Consumer Lifestyle:", consumerLifestyle);
-        console.log("User Preferences:", userPreferences);
-
         try {
             simulateLoadingDestination()
             // Send GET request to the server
@@ -312,6 +303,10 @@ export default function PlanYourTrip() {
             setActiveStep(5);
 
         } else if (activeStep == 8) {
+            setActiveStep(7);
+        }
+
+        else if (activeStep == 9) {
             setActiveStep(7);
         }
 
@@ -355,7 +350,7 @@ export default function PlanYourTrip() {
                             </Box>
                         ) : (
                             <Box sx={{ mt: 2, mb: 1 }}>
-                                <RecommendedHospital recomendedHospitals={recomendedHospitals} recommendedAyurvedaHospital={recommendedAyurvedaHospital} recommendedWellnessCenter={recommendedWellnessCenter} />
+                                <RecommendedHospital recomendedHospitals={recomendedHospitals} recommendedAyurvedaHospital={recommendedAyurvedaHospital} recommendedWellnessCenter={recommendedWellnessCenter} setActiveStep={setActiveStep} setSelectedHospital={setSelectedHospital} />
                             </Box>)}
                     </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -429,6 +424,10 @@ export default function PlanYourTrip() {
                             consumerLifestyle={consumerLifestyle}
                             userPreferences={userPreferences}
                         />
+                    }
+
+                    {(activeStep + 1) === 10 &&
+                        <ItenaryAndTreatmentPlan selectedHospital={selectedHospital} />
                     }
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
