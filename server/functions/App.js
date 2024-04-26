@@ -8,6 +8,8 @@ app.use(bodyParser.json());
 const hospitalCategorization = require('./hospitalCategorization')
 const touristDestinations = require('./touristDestinations')
 const itineraryData = require('./itineraryData')
+const treatmentPlanData = require('./treatmentPlanData');
+
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -141,6 +143,16 @@ app.get('/destinationRecommendation', (req, res) => {
 
 app.get('/itinerary', (req, res) => {
     res.json(itineraryData);
+});
+
+app.get('/treatmentPlan/:condition', (req, res) => {
+    const { condition } = req.params;
+
+    if (treatmentPlanData[condition]) {
+        res.json(treatmentPlanData[condition]);
+    } else {
+        res.status(404).json({ error: 'Condition not found' });
+    }
 });
 
 
